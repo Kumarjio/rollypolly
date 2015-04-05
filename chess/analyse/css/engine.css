@@ -1,0 +1,163 @@
+/*
+	Written by Alexander Mainzer w3EDV <info@w3edv.de>
+	(c)2012 Alexander Mainzer, All Rights Reserved
+*/
+
+.engine_panel button, .engine_panel select {
+        margin-left: 3px;
+        vertical-align: middle;
+        line-height: 15px;
+        margin: 0 0 3px 3px;
+}
+
+.engine_panel input {
+        width: 310px;
+        font-size: 9px;
+        height: 18px;
+        padding: 0;
+        line-height: 15px;
+}
+
+.engine_panel fieldset {
+        line-height: 1em;
+        border: 1px solid #C0C0C0;
+        margin: 5px;
+        padding: 5px;
+        width: 95%;
+}
+
+.engine_panel fieldset, .engine_panel legend {
+        text-align: left;
+}
+
+.engine_movepanel {
+	float: right;
+	font-size: 120%;
+}
+
+.engine_movepanel span {
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+.engine_variation {
+	width: 455px;
+	height: 75px;
+}
+
+
+.engine_bestmove {
+	float: left;
+	width: 240px;
+	height: 45px;
+	border: solid 2px transparent;
+	padding: 3px;
+	padding-bottom: 10px;
+	cursor: pointer;
+	font-size: 11px;
+}
+
+.engine_bgactive {
+	border: dotted 2px #008000;
+}
+
+/* chessboard */
+.engine_board {
+	width: 192px;				/* needs to be 8 times square width */
+	height: 192px;                          /* needs to be 8 times square height */
+	border: 1px solid #C0C0C0;
+	clear: both;
+	cursor: pointer; 
+}
+
+.engine_boardwrap {
+	width: 194px;				/* add border size to board size */
+	border: none;
+	float: left;
+	margin-right: 10px;
+}
+
+.engine_square {
+	padding: 2px;
+	float: left;
+	width: 20px;
+	height: 20px;
+	font-size: 16px;			/* ! smaller than height */
+	line-height: 20px; 			/* ! same value like height */
+	text-align: center;
+	color: black;
+}
+
+.engine_blacksquare {
+	background:#C0C0C0;
+}
+
+.engine_whitesquare {
+	background:#FFFFFF;
+}
+
+.engine_markersquare {
+	padding: 0px !important;
+	border: 2px solid #008000;
+}
+.engine_info {
+	width: 240px;
+        float: left;
+	font-weight: bold;
+}
+
+.engine_status {
+	margin-top: 10px;
+	margin-left: 10px;
+	min-height: 25px;
+	width: 240px;
+        float: left;
+}
+
+.engine_status_ready {
+	color: green;
+}
+
+.engine_status_loading {
+	color: blue;
+}
+
+.engine_status_error {
+	color: red;
+}
+
+.engine_status_error {
+	color: red;
+}
+
+.engine_link {
+        float: right;
+}
+
+.engine_sidetomove {
+        float: left;
+}
+
+.engine_historymove {
+	float: left;
+	min-width: 62px;
+}
+
+.engine_castlingwhite {
+        clear: both;
+        float: left;
+}
+.engine_castlingblack {
+        clear: both;
+        float: left;
+}
+
+.engine_enpassant {
+        clear: both;
+        float: left;
+}
+
+
+.engine_ads {
+        padding-left: 5px;
+}

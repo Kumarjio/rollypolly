@@ -1,0 +1,52 @@
+
+#usertab {
+	width: 400px;
+	font-size: 12px;
+	display: none;
+}
+#usertab ul.ui-tabs-nav {
+	width: 497px;
+	list-style: none;
+	border-bottom: 1px solid #C0C0C0;
+	height: 21px;
+	margin: 0;
+	padding-left: 5px;
+}
+#usertab ul.ui-tabs-nav li {
+	float: left;
+}
+#usertab ul.ui-tabs-nav li a {
+	padding: 3px 10px;
+	display: block;
+	border-left: 1px solid #C0C0C0;
+	border-top: 1px solid #C0C0C0;
+	border-right: 1px solid #C0C0C0;
+	margin-right: 2px;
+	text-decoration: none;
+	background-color: white;
+}
+#usertab ul.ui-tabs-nav li.ui-state-active a {
+	padding: 2px 10px 4px 10px;
+	margin-top: 1px;
+}
+
+div.tabs-wrapper {
+	background: white;
+	border: 1px solid #C0C0C0;
+	border-top: none;
+	padding: 10px;
+	width: 480px;
+}
+div.tab_contents {
+	display: none;
+}
+div.tab_contents_active {
+	display: block;
+}
+div.clear {
+	clear: both;
+}
+
+.ui-tabs-hide {
+	display: none;
+}

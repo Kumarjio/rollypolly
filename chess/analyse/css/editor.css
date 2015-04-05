@@ -1,0 +1,214 @@
+/*
+	Written by Alexander Mainzer w3EDV <info@w3edv.de>
+	(c)2012 Alexander Mainzer, All Rights Reserved
+*/
+
+.editor_feneditor {
+	width: 470px;
+	margin-left: 0px;
+	height: 595px;
+}
+
+.editor_feneditor button,
+.editor_feneditor select {
+    margin: 0 0 3px 3px;
+    vertical-align: middle;
+}
+
+.editor_feneditor fieldset {
+        line-height: 1em;
+        border: 1px solid #C0C0C0;
+        margin: 5px;
+        padding: 5px;
+        width: 95%;
+}
+
+.editor_feneditor fieldset,
+.editor_feneditor legend {
+        text-align: left;
+}
+
+.editor_editorboard {
+	width: 354px;
+	height: 344px;
+	padding: 0;
+	float: left;
+	margin-right: 10px;
+}
+
+.editor_square_corner {
+	width: 14px;
+	height: 14px;
+	float: left;
+	padding: 1px;
+	line-height: 12px;
+}
+
+.editor_square_col {
+	width: 37px;
+	height: 14px;
+	float: left;
+	padding: 1px;
+	line-height: 12px;
+	text-align: center;
+}
+
+.editor_square_rank {
+        width: 14px;
+        height: 37px;
+        float: left;
+        padding: 1px;
+        line-height: 35px;
+        text-align: center;
+}
+.editor_square_drop {
+	width: 37px;
+	height: 37px;
+	float: left;
+	padding: 1px;
+}
+
+.editor_piece {
+	line-height: 37px;
+        font-size: 32px;
+        text-align: center;
+	width: 100%;
+	cursor: pointer;
+}
+
+.editor_square_light {
+	background: #FFFFFF;
+}
+
+.editor_square_dark {
+	background: #C0C0C0;
+}
+
+.editor_square_top {
+	border-top: 1px solid #C0C0C0;
+	padding: 0 1px 1px 1px;
+}
+
+.editor_square_bottom {
+        border-bottom: 1px solid #C0C0C0;
+        padding: 1px 1px 0 1px;
+}
+
+.editor_square_left {
+        border-left: 1px solid #C0C0C0;
+        padding: 1px 1px 1px 0;
+}
+
+.editor_square_right {
+        border-right: 1px solid #C0C0C0;
+        padding: 1px 0 1px 1px;
+}
+
+.editor_square_topleft {
+        padding: 0 1px 1px 0 !important;
+}
+
+.editor_square_topright {
+        padding: 0 1px 1px 0 !important;
+}
+
+.editor_square_bottomleft {
+        padding: 1px 1px 0 0 !important;
+}
+
+.editor_square_bottomright {
+        padding: 1px 0 0 1px !important;
+}
+
+.editor_repo {
+	width: 80px;
+	float: left;
+	padding-bottom: 20px;
+}
+
+.editor_dragrepo {
+	width: 37px;
+        height: 37px;
+        float: left;
+        padding: 1px;
+        line-height: 35px;
+        font-size: 32px;
+        text-align: center;
+}
+
+.editor_piecerepo {
+        line-height: 35px;
+        font-size: 32px;
+        text-align: center;
+        width: 100%;
+	cursor: pointer;
+}
+
+.editor_fieldwrap {
+	clear: both;
+	margin-left: 5px;
+}
+
+.editor_field {
+	float: left;
+	text-align: left;
+	line-height: 30px;
+	vertical-align: middle;
+	height: 30px;
+}
+
+.editor_field input { 
+	margin-left: 5px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.editor_field select {
+	margin-left: 5px;
+        margin-right: 10px;
+}
+
+
+.editor_clear {
+	clear: both;
+}
+
+.editor_fenoutput {
+	width: 450px;
+	margin-left: 5px;
+	float: left;
+}
+
+#editor_fen {
+	width: 445px;
+	line-height: 10px;
+	font-size: 10px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.editor_box_ok {
+	box-shadow: 0 0 5px 3px #6EC160;
+}
+
+.editor_box_error {
+	box-shadow: 0 0 5px 3px #E96E5E;
+}
+
+#editor_loadfen {
+	float: left;
+	margin-right: 5px;
+}
+
+#editor_makefen {
+        float: left;
+}
+
+#editor_initfen {
+	float: right;
+}
+
+#editor_resetfen {
+        float: right;
+        margin-left: 5px;
+}

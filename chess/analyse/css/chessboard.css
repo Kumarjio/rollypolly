@@ -1,0 +1,187 @@
+/*
+        Written by Alexander Mainzer w3EDV <info@w3edv.de>
+        (c)2012 Alexander Mainzer, All Rights Reserved
+*/
+
+
+
+
+.chessboard_board {
+	float: left;
+	width: 360px;
+	height: 360px;
+	cursor: default;
+	border: solid 1px #C0C0C0;
+}
+
+.chessboard_border {
+	background: white;
+	width: 402px;
+	height: 402px;
+        border: solid 1px #C0C0C0;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+	border-radius: 5px 5px 5px 5px;
+}
+.chessboard_cols {
+	width: 402px;
+	height: 20px;
+	padding: 0 21px;
+}
+.chessboard_cols div {
+	width: 45px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        float: left;
+}
+
+.chessboard_ranks {
+	width: 20px;
+	height: 362px;
+	padding: 0;
+	float: left;
+}
+.chessboard_ranks div {
+        height: 45px;
+        width: 20px;
+        text-align: center;
+        line-height: 45px;
+}
+
+.chessboard_dropper {
+        position: absolute;
+	top: 0;
+	left: 0;
+        padding: 2px;
+        width: 41px;
+        height: 41px;
+        cursor: pointer;
+        z-index: -1;
+	display: none;
+}
+
+.chessboard_square {
+        padding: 0px;
+        width: 41px;
+        height: 41px;
+        float: left;
+}
+
+.chessboard_piece {
+        vertical-align: middle;
+        display: block;
+        font-size: 35px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+}
+
+
+
+.chessboard_panel {
+	margin-top: 10px;
+	width: 400px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+
+.chessboard_color {
+	margin-top: 0px;
+	margin-bottom: 3px;
+	margin-right: 5px;
+	margin-left: 15px;
+	width: 15px;
+	height: 15px;
+	border: solid 2px black;
+}
+
+.chessboard_panel button, .chessboard_panel select {
+	margin-left: 3px;
+	vertical-align: middle; 
+	line-height: 15px;
+	margin: 0 0 3px 3px;
+}
+
+.chessboard_panel input {
+        width: 220px;
+        font-size: 9px;
+        height: 18px;
+        padding: 0;
+        line-height: 15px;
+}
+
+.chessboard_panel_maxwidth {
+        width: 310px !important;
+}
+
+.chessboard_panel fieldset {
+	background: white;
+	line-height: 1em;
+	border: 1px solid #C0C0C0;
+	margin: 5px;
+	padding: 5px;
+	width: 95%;
+}
+
+.chessboard_panel fieldset, .chessboard_panel legend {
+	text-align: left;
+}
+
+.chessboard_movelist {
+        min-height: 45px;
+	overflow: auto;
+}
+
+.chessboard_move {
+	margin: 3px;
+	padding-left: 2px;
+        text-align: left;
+        line-height: 15px;
+	font-weight: bold;
+}
+
+.chessboard_highlight {
+        text-align: left;
+        line-height: 15px;
+}
+
+
+.chessboard_halfmove {
+	cursor: pointer;
+	line-height: 16px !important;
+}
+
+.chessboard_mwhite {
+	background: #FFFFFF;
+}
+
+.chessboard_mblack {
+	background: #000000;
+}
+
+.chessboard_lightsquare {
+        background: #FFFFFF;
+        border: 2px solid #FFFFFF;
+}
+.chessboard_darksquare {
+        background: #D0D0D0;
+        border: 2px solid #D0D0D0;
+}
+
+.chessboard_markedsquare {
+        border: 2px solid #008000;
+}
+
+.chessboard_left {
+	float: left;
+}
+.chessboard_right {
+	float: right;
+}
+.chessboard_center {
+	float: center;
+}
+.chessboard_clear {
+	clear: both;
+}

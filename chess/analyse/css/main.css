@@ -1,0 +1,174 @@
+/*
+        Written by Alexander Mainzer w3EDV <info@w3edv.de>
+        (c)2012 Alexander Mainzer, All Rights Reserved
+*/
+
+
+body {
+	color: #404040;
+	font-family: "Arial Unicode MS" , "MS Mincho" , "Lucida Grande" , "Verdana", sans-serif;
+	font-size: 12px;
+	min-width: 930px;
+}
+
+#copyright, #copyright a {
+	font-size: 10px;
+	line-height: 15px;
+	color: #404040;
+}
+
+#footerstick {
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    position: fixed;
+    text-align: right;
+    width: 100%;
+}
+
+#footer {
+    background: none repeat scroll 0 0 transparent;
+    height: 15px;
+    margin: auto;
+    width: 95%;
+}
+
+#mainboard {
+	float: left;
+}
+#usertab {
+	margin-left: 8px;
+	float: left;
+}
+
+
+
+/* css3 loading icon */
+
+div.loader {
+	float: left;
+	width: 60px;
+	height: 18px;
+}
+
+div.loader div:nth-child(1) {
+        width: 60px;
+        height: 14px;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+div.loader div:nth-child(2) {
+	width: 60px;
+	height: 4px;
+}
+
+div.loader div.sphere {
+	background-color: #FFFFFF;
+	float:	left;
+	width: 3px;
+	height: 3px;
+	margin-right: 3px;
+	margin-left: 1px;
+
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:linear;
+	-webkit-animation-duration:5s;
+	
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-direction:linear;
+	-moz-animation-duration:5s;
+	opacity:0.3;
+
+}
+
+div.loaderbar div:nth-child(1) {
+	-webkit-animation-name:bounce_sphere1;
+	-moz-animation-name:bounce_sphere1;
+}
+
+div.loaderbar div:nth-child(2) {
+	-webkit-animation-name:bounce_sphere2;
+	-moz-animation-name:bounce_sphere2;
+}	
+div.loaderbar div:nth-child(3) {
+	-webkit-animation-name:bounce_sphere3;
+	-moz-animation-name:bounce_sphere3;
+}
+
+div.loaderbar div:nth-child(4) {
+	-webkit-animation-name:bounce_sphere4;
+	-moz-animation-name:bounce_sphere4;
+}
+
+
+@-webkit-keyframes bounce_sphere1 {
+	0% { opacity: 0 }
+	10% { opacity: 0.25 }
+	20% { opacity: 0.50 }
+	30% { opacity: 0.75 }
+	40% { opacity: 1; background-color:#0000ff; }
+	100% { opacity: 1; background-color:#0000ff; }
+}
+@-moz-keyframes bounce_sphere1 {
+	0% { opacity: 0 }
+	10% { opacity: 0.25 }
+	20% { opacity: 0.50 }
+	30% { opacity: 0.75 }
+	40% { opacity: 1; background-color:#0000ff; }
+	100% { opacity: 1; background-color:#0000ff; }
+}
+
+@-webkit-keyframes bounce_sphere2 {
+	0% {opacity: 0; }
+	20% {opacity: 0; }
+	30% {opacity: 0.25; }
+	40% {opacity: 0.50; }
+	50% {opacity: 0.75; }
+	60% {opacity: 1; background-color: #0000ff; }
+	100% {opacity: 1; background-color: #0000ff; }
+}
+@-moz-keyframes bounce_sphere2 {
+	0% {opacity: 0; }
+	20% {opacity: 0; }
+	30% {opacity: 0.25; }
+	40% {opacity: 0.50; }
+	50% {opacity: 0.75; }
+	60% {opacity: 1; background-color: #0000ff; }
+	100% {opacity: 1; background-color: #0000ff; }
+}
+
+@-webkit-keyframes bounce_sphere3 {
+	0% { opacity: 0; }
+	40% { opacity: 0; }
+	50% { opacity: 0.25; }
+	60% { opacity: 0.50; }
+	70% { opacity: 0.75; }
+	80% { opacity: 1; background-color: #0000ff; }
+	100% { opacity: 1; background-color: #0000ff; }
+}
+@-moz-keyframes bounce_sphere3 {
+	0% { opacity: 0; }
+	40% { opacity: 0; }
+	50% { opacity: 0.25; }
+	60% { opacity: 0.50; }
+	70% { opacity: 0.75; }
+	80% { opacity: 1; background-color: #0000ff; }
+	100% { opacity: 1; background-color: #0000ff; }
+}
+
+@-webkit-keyframes bounce_sphere4 {
+	0% { opacity: 0; }
+	60% { opacity: 0; }
+	70% { opacity: 0.25; }
+	80% { opacity: 0.50; }
+	98% { opacity: 0.75; }
+	100% { opacity: 1; background-color: #0000ff; }
+}
+@-moz-keyframes bounce_sphere4 {
+	0% { opacity: 0; }
+	60% { opacity: 0; }
+	70% { opacity: 0.25; }
+	80% { opacity: 0.50; }
+	98% { opacity: 0.75; }
+	100% { opacity: 1; background-color: #0000ff; }
+}

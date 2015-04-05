@@ -1,0 +1,51 @@
+/*
+	Written by Alexander Mainzer w3EDV <info@w3edv.de>
+	(c)2012 Alexander Mainzer, All Rights Reserved
+*/
+
+.wcc_button, .wcc_panel select {
+        margin-left: 3px;
+        vertical-align: middle;
+        line-height: 15px;
+        margin: 0 0 3px 3px;
+}
+
+.wcc_panel input {
+        width: 310px;
+        font-size: 9px;
+        height: 18px;
+        padding: 0;
+        line-height: 15px;
+}
+
+.wcc_panel fieldset {
+        line-height: 1em;
+        border: 1px solid #C0C0C0;
+        margin: 5px;
+        padding: 5px;
+        width: 95%;
+}
+
+.wcc_panel fieldset, .wcc_panel legend {
+        text-align: left;
+}
+
+.wcc_movepanel {
+	float: right;
+	font-size: 120%;
+}
+
+.wcc_movepanel span {
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+.wcc_variation {
+	width: 455px;
+	height: 75px;
+}
+
+.wcc_panel canvas {
+	cursor: crosshair;
+}
+
