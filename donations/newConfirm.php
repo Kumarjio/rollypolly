@@ -44,6 +44,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 }
 
 $amount = 0.01;
+$amountFeatured = 0.02;
 ?>
 <!doctype html>
 <html>
@@ -60,7 +61,7 @@ $amount = 0.01;
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="renu09@live.com">
   <input type="hidden" name="item_name" id="item_name" value="Fund Creation Fees [DID:<?php echo $_GET['did']; ?>]">
-      <input type="hidden" name="custom" id="custom" value='{"user_id":"<?php echo $_SESSION['MM_UserId']; ?>", "did":"<?php echo $_GET['did']; ?>"}' >
+      <input type="hidden" name="custom" id="custom" value='{"user_id":"<?php echo $_SESSION['MM_UserId']; ?>", "did":"<?php echo $_GET['did']; ?>", "is_featured":"0"}' >
       <input type="hidden" name="amount" value="<?php echo $amount; ?>">
       <input type="hidden" name="item_number" id="item_number" value="<?php echo $_GET['did']; ?>" >
     <input type="hidden" name="currency_code" value="USD">
@@ -74,5 +75,26 @@ $amount = 0.01;
     <img alt="" border="0" width="1" height="1"
     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
 </form>
+<h3>Make this as Featured Listing Item. Featured Item will appear on front page on rotation basis. Click below paypal link to pay a featured admin fees of $ <?php echo $amountFeatured; ?>/-</h3>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="renu09@live.com">
+  <input type="hidden" name="item_name" id="item_name" value="Fund Creation Featured Fees [DID:<?php echo $_GET['did']; ?>]">
+      <input type="hidden" name="custom" id="custom" value='{"user_id":"<?php echo $_SESSION['MM_UserId']; ?>", "did":"<?php echo $_GET['did']; ?>", "is_featured":"1"}' >
+      <input type="hidden" name="amount" value="<?php echo $amountFeatured; ?>">
+      <input type="hidden" name="item_number" id="item_number" value="<?php echo $_GET['did']; ?>" >
+    <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="return" value="http://godonateme.com/newConfirmPaypal.php">
+  <input type="hidden" name="cancel_return" value="http://godonateme.com/newCancelPaypal.php">
+  <input type="hidden" name="notify_url" value="http://godonateme.com/newNotifyPaypal.php">
+    <!-- Display the payment button. -->
+    <input type="image" name="submit" border="0"
+    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+    alt="PayPal - The safer, easier way to pay online">
+    <img alt="" border="0" width="1" height="1"
+    src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+</form>
+
 </body>
 </html>

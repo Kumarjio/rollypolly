@@ -3,7 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
+<!-- TemplateBeginEditable name="doctitle" -->
 <title>Base page</title>
+<!-- TemplateEndEditable -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -16,8 +18,8 @@
 
 <!-- Le styles -->
 <!-- Latest compiled and minified CSS BS 3.0. -->
-<link href="assets/css/bootstrap.css" rel="stylesheet">
-<link href="assets/css/theme3.css" rel="stylesheet">
+<link href="../donations/assets/css/bootstrap.css" rel="stylesheet">
+<link href="../donations/assets/css/theme3.css" rel="stylesheet">
 
 
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
@@ -33,8 +35,10 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 <![endif]-->
 <!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon">
-<link rel="icon" href="assets/ico/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="../donations/assets/ico/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../donations/assets/ico/favicon.ico" type="image/x-icon">
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
 </head>
 <body>
 <div class="wrap">
@@ -303,9 +307,9 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.js" type="text/javascript"></script>
+    <script src="../donations/assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="assets/js/bootstrap.js"></script>
+<script src="../donations/assets/js/bootstrap.js"></script>
 
 
 </body>

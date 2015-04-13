@@ -1,0 +1,1 @@
+<address> <strong>godonateme.com, Inc.</strong><br /> <br /> San Jose, CA 95117<br /> <abbr title="Phone">P:</abbr> (408) 505-2726</address> <address> <strong><!--Full Name--></strong><br /> <a href="mailto:#">admin@godonateme.com</a></address>

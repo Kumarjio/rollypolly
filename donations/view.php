@@ -33,7 +33,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 $currentPage = $_SERVER["PHP_SELF"];
 
-$maxRows_rsView = 25;
+$maxRows_rsView = 20;
 $pageNum_rsView = 0;
 if (isset($_GET['pageNum_rsView'])) {
   $pageNum_rsView = $_GET['pageNum_rsView'];
@@ -43,17 +43,13 @@ $startRow_rsView = $pageNum_rsView * $maxRows_rsView;
 $gcid = array();
 $cid = "";
 if (!empty($_GET['cid'])) {
-  $_GET['cid'] = array_filter($_GET['cid']);
-  if (!empty($_GET['cid'])) {
-    $gcid = $_GET['cid'];
-    $tmp = implode(',', $_GET['cid']);
-    $cid = ' AND donations.donation_category_id IN ('.$tmp.')';
-  }
+    $cid = ' AND d.donation_category_id = '.GetSQLValueString($_GET['cid'], 'int');
 }
 
 
 mysql_select_db($database_connWork, $connWork);
-$query_rsView = "SELECT * FROM donations WHERE donation_status = 1 AND donation_payment_status = 'Completed' $cid ORDER BY donation_created ASC";
+$query_rsView = "SELECT * FROM donations as d LEFT JOIN donations_calc_received
+ as r ON d.did = r.did2 WHERE d.is_featured = 0 AND d.donation_status = 1 AND d.donation_payment_status = 'Completed' $cid ORDER BY d.donation_created ASC";
 $query_limit_rsView = sprintf("%s LIMIT %d, %d", $query_rsView, $startRow_rsView, $maxRows_rsView);
 $rsView = mysql_query($query_limit_rsView, $connWork) or die(mysql_error());
 $row_rsView = mysql_fetch_assoc($rsView);
@@ -65,12 +61,6 @@ if (isset($_GET['totalRows_rsView'])) {
   $totalRows_rsView = mysql_num_rows($all_rsView);
 }
 $totalPages_rsView = ceil($totalRows_rsView/$maxRows_rsView)-1;
-
-mysql_select_db($database_connWork, $connWork);
-$query_rsCategory = "SELECT * FROM donations_category ORDER BY category ASC";
-$rsCategory = mysql_query($query_rsCategory, $connWork) or die(mysql_error());
-$row_rsCategory = mysql_fetch_assoc($rsCategory);
-$totalRows_rsCategory = mysql_num_rows($rsCategory);
 
 $queryString_rsView = "";
 if (!empty($_SERVER['QUERY_STRING'])) {
@@ -87,66 +77,200 @@ if (!empty($_SERVER['QUERY_STRING'])) {
   }
 }
 $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $queryString_rsView);
-?>
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>View Donations</title>
-</head>
 
+?>
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>View Donations Requested</title>
+<!-- InstanceEndEditable -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700italic,700,500&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<link href="assets/css/theme1.css" rel="stylesheet">
+
+
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+<!--[if lt IE 7]>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon">
+<link rel="icon" href="assets/ico/favicon.ico" type="image/x-icon">
+
+<!-- InstanceBeginEditable name="head" -->
+<meta charset="UTF-8">
+
+<!-- InstanceEndEditable -->
+</head>
 <body>
-<h1>Donations Requested</h1>
-<form id="form1" name="form1" method="get">
-  <label for="cid"><strong>Category:</strong></label>
-  <br>
-  <select name="cid[]" size="5" multiple id="cid">
-    <option value="">Select</option>
-    <?php
-do {  
-?>
-    <option value="<?php echo $row_rsCategory['category_id']?>"<?php if ((in_array($row_rsCategory['category_id'], $gcid))) {echo "selected=\"selected\"";} ?>><?php echo $row_rsCategory['category']?></option>
-    <?php
-} while ($row_rsCategory = mysql_fetch_assoc($rsCategory));
-  $rows = mysql_num_rows($rsCategory);
-  if($rows > 0) {
-      mysql_data_seek($rsCategory, 0);
-	  $row_rsCategory = mysql_fetch_assoc($rsCategory);
-  }
-?>
-  </select>
-  <br>
-  <input type="submit" name="submit" id="submit" value="Browse">
-</form>
-<br />
+<div class="wrap">
+<section>
+<nav class="navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/">godonateme.com</a>
+    </div>
+    
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav ">
+        <li class="active">
+          <a href="#">Link</a>
+        </li>
+        <li>
+          <a href="#">Link</a>
+        </li>
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Action</a>
+            </li>
+            <li>
+              <a href="#">Another action</a>
+            </li>
+            <li>
+              <a href="#">Something else here</a>
+            </li>
+            <li>
+              <a href="#">Separated link</a>
+            </li>
+            <li>
+              <a href="#">One more separated link</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">Link</a>
+        </li>
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Action</a>
+            </li>
+            <li>
+              <a href="#">Another action</a>
+            </li>
+            <li>
+              <a href="#">Something else here</a>
+            </li>
+            <li>
+              <a href="#">Separated link</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</nav>
+</section>
+<section class="top-section">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <h1>
+        godonateme.com
+      </h1>
+    </div>
+    <div class="col-md-4  col-lg-5 col-sm-6 col-xs-6">
+<?php include('inc_googleadsense.php'); ?>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <?php include('inc_category.php'); ?>
+      </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+<!-- InstanceBeginEditable name="EditRegion5" -->
+
+<!-- InstanceEndEditable -->
+
+
+        <div class="page-header">
+<!-- InstanceBeginEditable name="EditRegion4" -->
+<h3>Donations <small>Requested</small></h3>
+<!-- InstanceEndEditable -->
+
+</div>
+
+<div class="row">
+<div class="col-lg-12">
+<!-- InstanceBeginEditable name="EditRegion3" -->
 <?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
-  <table border="1" cellpadding="5" cellspacing="0">
-    <tr>
-      <td>did</td>
-      <td>user_id</td>
-      <td>donation_title</td>
-      <td>donation_desc</td>
-      <td>donation_needed</td>
-      <td>donation_created</td>
-      <td>donation_status</td>
-      <td>donation_category_id</td>
-      <td>donation_image</td>
-    </tr>
+    <div class="row">
     <?php do { ?>
-      <tr>
-        <td><?php echo $row_rsView['did']; ?></td>
-        <td><?php echo $row_rsView['user_id']; ?></td>
-        <td><a href="detail.php?did=<?php echo $row_rsView['did']; ?>"><?php echo $row_rsView['donation_title']; ?></a></td>
-        <td><?php echo $row_rsView['donation_desc']; ?></td>
-        <td><?php echo $row_rsView['donation_needed']; ?></td>
-        <td><?php echo $row_rsView['donation_created']; ?></td>
-        <td><?php echo $row_rsView['donation_status']; ?></td>
-        <td><?php echo $row_rsView['donation_category_id']; ?></td>
-        <td><?php echo $row_rsView['donation_image']; ?></td>
-      </tr>
-      <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>
-  </table>
-  <p> Records <?php echo ($startRow_rsView + 1) ?> to <?php echo min($startRow_rsView + $maxRows_rsView, $totalRows_rsView) ?> of <?php echo $totalRows_rsView ?> &nbsp;
+        <!-- for loop starts -->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="panel panel-default">
+                <img class="img-responsive" style="width: 100%;" src="images/<?php echo $row_rsView['user_id']; ?>/thumbs/<?php echo $row_rsView['donation_image']; ?>" alt="" />
+                <div class="panel-body text-center" style="height: 120px;">
+                    <h4>
+                        <a href="detail.php?did=<?php echo $row_rsView['did']; ?>"><?php echo $row_rsView['donation_title']; ?></a>
+                    </h4>
+                    <p class="text-danger">
+                      $ <?php echo $row_rsView['donation_needed'];?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- for loop ends -->
+    <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>
+</div>
+
+<p> Records <?php echo ($startRow_rsView + 1) ?> to <?php echo min($startRow_rsView + $maxRows_rsView, $totalRows_rsView) ?> of <?php echo $totalRows_rsView ?></p>
+
+<hr>
+
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <ul class="pagination">
+      <?php if ($pageNum_rsView > 0) { // Show if not first page ?>
+      <li>
+        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, 0, $queryString_rsView); ?>"><<</a>
+      </li>
+      <?php } // Show if not first page ?>
+      <?php if ($pageNum_rsView > 0) { // Show if not first page ?>
+      <li>
+        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, max(0, $pageNum_rsView - 1), $queryString_rsView); ?>"><</a>
+      </li>
+      <?php } // Show if not first page ?>
+      <?php if ($pageNum_rsView < $totalPages_rsView) { // Show if not last page ?>
+      <li>
+        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, min($totalPages_rsView, $pageNum_rsView + 1), $queryString_rsView); ?>">></a>
+      </li>
+      <?php } // Show if not last page ?>
+      <?php if ($pageNum_rsView < $totalPages_rsView) { // Show if not last page ?>
+      <li>
+        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, $totalPages_rsView, $queryString_rsView); ?>">>></a>
+      </li>
+      <?php } // Show if not last page ?>
+    </ul>
+</div>
+</div>
+<!--
   <table border="0">
     <tr>
       <td><?php if ($pageNum_rsView > 0) { // Show if not first page ?>
@@ -162,16 +286,111 @@ do {
         <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, $totalPages_rsView, $queryString_rsView); ?>">Last</a>
         <?php } // Show if not last page ?></td>
     </tr>
-  </table>
-  <?php } // Show if recordset not empty ?>
-</p>
+  </table>-->
+<?php } // Show if recordset not empty ?>
 <?php if ($totalRows_rsView == 0) { // Show if recordset empty ?>
   <p>No Record Found.</p>
   <?php } // Show if recordset empty ?>
+<!-- InstanceEndEditable -->
+</div>
+</div>
+
+
+</div><!-- middle col -->
+
+<?php include('inc_featured.php'); ?>
+
+
+</div><!-- / inner .row -->
+</div>
+</section>
+
+<section class="custom-footer">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
+       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="assets/js/bootstrap.js"></script>
+
 </body>
-</html>
+<!-- InstanceEnd --></html>
 <?php
 mysql_free_result($rsView);
-
-mysql_free_result($rsCategory);
 ?>

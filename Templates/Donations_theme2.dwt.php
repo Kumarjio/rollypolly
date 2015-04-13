@@ -35,7 +35,8 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 <![endif]-->
 <!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="../donations/assets/ico/favicon.ico">
+<link rel="shortcut icon" href="../donations/assets/ico/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../donations/assets/ico/favicon.ico" type="image/x-icon">
 <!-- TemplateBeginEditable name="head" -->
 <!-- TemplateEndEditable -->
 </head>

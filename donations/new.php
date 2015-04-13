@@ -90,14 +90,20 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 
 $target_dir = 'images/'.$_SESSION['MM_UserId'].'/';
+$target_dirThumbs = 'images/'.$_SESSION['MM_UserId'].'/thumbs/';
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   if (!is_dir($target_dir)) {
     mkdir($target_dir, 0755);
     chmod($target_dir, 0755);
   }
+  if (!is_dir($target_dirThumbs)) {
+    mkdir($target_dirThumbs, 0755);
+    chmod($target_dirThumbs, 0755);
+  }
   $filename = 'f_'.time().'_'.basename($_FILES["fileToUpload"]["name"]);
   $_POST['fileToUpload'] = $filename;
   $target_file = $target_dir . $filename;
+  $target_fileThumbs = $target_dirThumbs . $filename;
   $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
   // Check if image file is a actual image or fake image
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -123,16 +129,22 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+  include('SimpleImage.php');
+  $image = new SimpleImage();
+  $image->load($target_file);
+  $image->resize(230,153);
+  $image->save($target_fileThumbs);
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO donations (user_id, donation_title, donation_desc, donation_needed, donation_category_id, donation_image) VALUES (%s, %s, %s, %s, %s, %s)",
+  $insertSQL = sprintf("INSERT INTO donations (user_id, donation_title, donation_desc, donation_needed, donation_category_id, donation_image, donation_paypal_email) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['user_id'], "int"),
                        GetSQLValueString($_POST['donation_title'], "text"),
                        GetSQLValueString($_POST['donation_desc'], "text"),
                        GetSQLValueString($_POST['donation_needed'], "double"),
                        GetSQLValueString($_POST['donation_category_id'], "int"),
-                       GetSQLValueString($_POST['fileToUpload'], "text"));
+                       GetSQLValueString($_POST['fileToUpload'], "text"),
+                       GetSQLValueString($_POST['donation_paypal_email'], "text"));
 
   mysql_select_db($database_connWork, $connWork);
   $Result1 = mysql_query($insertSQL, $connWork) or die(mysql_error());

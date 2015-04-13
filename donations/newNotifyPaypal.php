@@ -140,11 +140,13 @@ if (strcmp ($res, "VERIFIED") == 0) {
   $customArr = json_decode($custom, 1);
   error_log(date('[Y-m-d H:i e] '). "customArr: ". var_export($customArr, 1). PHP_EOL, 3, LOG_FILE);
   $did = $customArr['did'];
+  $is_featured = !empty($customArr['is_featured']) ? $customArr['is_featured'] : 0;
 
-  $insertSQL = sprintf("UPDATE donations set donation_payment_details = %s, donation_payment_status = %s, donation_payment_date = %s WHERE did = %s",
+  $insertSQL = sprintf("UPDATE donations set donation_payment_details = %s, donation_payment_status = %s, donation_payment_date = %s, is_featured = %s WHERE did = %s",
                        GetSQLValueString(json_encode($_POST), "text"),
                        GetSQLValueString($_POST['payment_status'], "text"),
                        GetSQLValueString(date('Y-m-d H:i:s', strtotime($_POST['payment_date'])), "text"),
+                       GetSQLValueString($is_featured, "int"),
                        GetSQLValueString($did, "int"));
 
   mysql_select_db($database_connWork, $connWork);
