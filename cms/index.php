@@ -115,6 +115,39 @@ class CMSActivities extends Models_General
     }
     return $result;
   }
+  public function getAllURLS($keyword='', $pageNum_rsSitemap=0, $maxRows_rsSitemap=100)
+  {
+    
+    $startRow_rsSitemap = $pageNum_rsSitemap * $maxRows_rsSitemap;
+    $query_rsSitemap = "SELECT * FROM short_keywords WHERE status = 1 ORDER BY `views` DESC";
+    $query_limit_rsSitemap = sprintf("%s LIMIT %d, %d", $query_rsSitemap, $startRow_rsSitemap, $maxRows_rsSitemap);
+    $result = $this->fetchAll($query_limit_rsSitemap, array(), 3600);
+    $query = "SELECT count(*) as cnt FROM short_keywords WHERE status = 1";
+    $resultCnt = $this->fetchRow($query, array(), 3600);
+    $totalRows_rsSitemap = $resultCnt['cnt'];
+    $totalPages_rsSitemap = ceil($totalRows_rsSitemap/$maxRows_rsSitemap)-1;
+    $queryString_rsSitemap = "";
+    if (!empty($_SERVER['QUERY_STRING'])) {
+      $params = explode("&", $_SERVER['QUERY_STRING']);
+      $newParams = array();
+      foreach ($params as $param) {
+        if (stristr($param, "pageNum_rsSitemap") == false && 
+            stristr($param, "totalRows_rsSitemap") == false && 
+            stristr($param, "request_uri") == false && 
+            stristr($param, "q") == false) {
+          array_push($newParams, $param);
+        }
+      }
+      if (count($newParams) != 0) {
+        $queryString_rsSitemap = "&" . htmlentities(implode("&", $newParams));
+      }
+    }
+    $queryString_rsSitemap = sprintf("&totalRows_rsSitemap=%d%s", $totalRows_rsSitemap, $queryString_rsSitemap);
+    if (empty($result)) {
+      $this->clearCache($query, array());
+    }
+    return array('rsSitemap' => $result, 'totalRows_rsSitemap' => $totalRows_rsSitemap, 'queryString_rsSitemap' => $queryString_rsSitemap, 'totalPages_rsSitemap' => $totalPages_rsSitemap, 'startRow_rsSitemap' => $startRow_rsSitemap, 'maxRows_rsSitemap' => $maxRows_rsSitemap, 'pageNum_rsSitemap' => $pageNum_rsSitemap, 'q' => $q);
+  }
 }
 
 
@@ -281,6 +314,7 @@ $contentForTemplate = ob_get_clean();
 		<div class="menu-top-container">
 	<ul id="menu-top" class="menu">
     <li class="menu-item"><a href="<?php echo $url; ?>">Home</a></li>
+    <li class="menu-item"><a href="http://cms.mkgalaxy.com/sitemap">Sitemap</a></li>
 	</ul>
 </div>
 

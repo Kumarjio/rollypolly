@@ -1,0 +1,33 @@
+body{
+     padding-top:50px;   
+}
+.top-section{
+     background:#f9f9f9;  
+     padding-top:15px;
+	 margin-bottom:15px;
+}
+section.custom-footer {
+background: #333;
+padding-top: 40px;
+padding-bottom: 40px;
+color: #f6f6f6;
+}
+section.custom-footer a, section.custom-footer address {
+color: #f8f8f8;
+}
+
+/* transform navigation list on tablets and mobiles */
+#cat-navi select {
+display: none;
+}
+
+@media (max-width: 940px){
+	#cat-navi select {
+		display: block;
+		width: 100%;
+	}
+	#cat-navi li {
+		display: none;
+	}
+}
+
