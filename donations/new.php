@@ -45,6 +45,21 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 }
 ?>
 <?php
+
+if (!function_exists("guid")) {
+function guid()
+{
+    mt_srand((double) microtime() * 10000);
+    $charid = strtoupper(md5(uniqid(rand(), true)));
+    $guid = substr($charid, 0, 8) . '-' .
+            substr($charid, 8, 4) . '-' .
+            substr($charid, 12, 4) . '-' .
+            substr($charid, 16, 4) . '-' .
+            substr($charid, 20, 12);
+   return $guid;
+}
+}
+
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -137,7 +152,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO donations (user_id, donation_title, donation_desc, donation_needed, donation_category_id, donation_image, donation_paypal_email) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+  $did = guid();
+  $insertSQL = sprintf("INSERT INTO donations (did, user_id, donation_title, donation_desc, donation_needed, donation_category_id, donation_image, donation_paypal_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                       GetSQLValueString($did, "text"),
                        GetSQLValueString($_POST['user_id'], "int"),
                        GetSQLValueString($_POST['donation_title'], "text"),
                        GetSQLValueString($_POST['donation_desc'], "text"),
@@ -152,7 +169,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertGoTo = "newConfirm.php?did=".mysql_insert_id();
+  $insertGoTo = "newConfirm.php?did=".$did;
   if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
     $insertGoTo .= $_SERVER['QUERY_STRING'];
@@ -177,69 +194,300 @@ $rsUser = mysql_query($query_rsUser, $connWork) or die(mysql_error());
 $row_rsUser = mysql_fetch_assoc($rsUser);
 $totalRows_rsUser = mysql_num_rows($rsUser);
 ?>
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta charset="UTF-8">
-<title>New Request</title>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>New Donation Request</title>
+<!-- InstanceEndEditable -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700italic,700,500&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<link href="assets/css/theme1.css" rel="stylesheet">
+<link href="assets/css/site.css" rel="stylesheet">
+
+
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+<!--[if lt IE 7]>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon">
+<link rel="icon" href="assets/ico/favicon.ico" type="image/x-icon">
+
+<!-- InstanceBeginEditable name="head" -->
+<meta charset="UTF-8">
+
+<!-- InstanceEndEditable -->
+</head>
 <body>
-<h1>New Fund Request</h1>
+<div class="wrap">
+<section>
+<nav class="navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/">godonateme.com</a>
+    </div>
+    
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav ">
+          <?php if (!empty($_SESSION['MM_UserId'])) { ?>
+        <li class="active">
+          <a href="logout.php">Logout</a>
+        </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
+        <li class="active">
+          <a href="login.php">Login</a>
+        </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
+        <li>
+          <a href="register.php">Register</a>
+        </li>
+          <?php } ?>
+        <li>
+          <a href="new.php">Create</a>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <?php if (!empty($_SESSION['MM_UserId'])) { ?>
+        <li>
+          <a href="javascript:;">Welcome, <?php echo $_SESSION['MM_Name']; ?></a>
+        </li>
+          <?php } ?>
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Contact Us</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</nav>
+</section>
+<section class="top-section">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <h1>
+        godonateme.com
+      </h1>
+    </div>
+    <div class="col-md-4  col-lg-5 col-sm-6 col-xs-6">
+<?php include('inc_googleadsense.php'); ?>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <?php include('inc_category.php'); ?>
+      </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+<!-- InstanceBeginEditable name="EditRegion5" -->
+
+<!-- InstanceEndEditable -->
+
+
+<!-- InstanceBeginEditable name="EditRegion4" -->
+
+<!-- InstanceEndEditable -->
+
+<div class="row">
+<div class="col-lg-12">
+<!-- InstanceBeginEditable name="EditRegion3" -->
+<form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="form1">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group" id="accordion">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseDetail">New Fund Request</a>
+                  </h4>
+              </div>
+              <div id="collapseDetail" class="panel-collapse collapse in">
+                  <div class="panel-body">
 <?php if (!empty($error)) { ?>
 <div class="error"><?php echo $error; ?></div>
 <?php } ?>
-<form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="form1">
-  <table>
-    <tr valign="baseline">
-      <td nowrap align="right">Fund Title:</td>
-      <td><input type="text" name="donation_title" value="" size="32" required></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap align="right" valign="top">Why you need Fund?</td>
-      <td><textarea name="donation_desc" cols="50" rows="5" required></textarea></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap align="right">How much funds you need:</td>
-      <td>$ 
-        <input type="text" name="donation_needed" value="" size="32" required></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap align="right">Category:</td>
-      <td><select name="donation_category_id" required>
-        <option value="">Select</option>
-        <?php
-do {  
-?>
-        <option value="<?php echo $row_rsCategory['category_id']?>"><?php echo $row_rsCategory['category']?></option>
-        <?php
-} while ($row_rsCategory = mysql_fetch_assoc($rsCategory));
-  $rows = mysql_num_rows($rsCategory);
-  if($rows > 0) {
-      mysql_data_seek($rsCategory, 0);
-	  $row_rsCategory = mysql_fetch_assoc($rsCategory);
-  }
-?>
-      </select></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap align="right">Image:</td>
-      <td><input type="file" name="fileToUpload" id="fileToUpload" required></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap align="right">Paypal Email Address:</td>
-      <td><input name="donation_paypal_email" type="text" id="donation_paypal_email" value="<?php echo $row_rsUser['paypal_email']; ?>"></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap align="right">&nbsp;</td>
-      <td><input type="submit" value="Insert record"></td>
-    </tr>
-  </table>
+                      <div class="form-group">
+                          <strong>Fund Title</strong> <br />
+                          <input type="text" name="donation_title" id="donation_title" required class="inputText" />
+                      </div>
+
+                      <div class="form-group">
+                          <strong>Why you need Fund?</strong> <br />
+                          <textarea name="donation_desc" cols="50" rows="5" required class="inputText"></textarea>
+                      </div>
+
+                      <div class="form-group">
+                          <strong>How much funds you need?</strong> <br />
+                          <input type="text" name="donation_needed" value="" size="32" required class="inputText">
+                      </div>
+
+                      <div class="form-group">
+                          <strong>Category</strong> <br />
+                          <select name="donation_category_id" required>
+                              <option value="">Select</option>
+                              <?php do { ?>
+                                  <option value="<?php echo $row_rsCategory['category_id']?>"><?php echo $row_rsCategory['category']?></option>
+                              <?php
+                                } while ($row_rsCategory = mysql_fetch_assoc($rsCategory));
+                                  $rows = mysql_num_rows($rsCategory);
+                                  if($rows > 0) {
+                                      mysql_data_seek($rsCategory, 0);
+                                    $row_rsCategory = mysql_fetch_assoc($rsCategory);
+                                  }
+                                ?>
+                          </select>
+                      </div>
+
+                      <div class="form-group">
+                          <strong>Image</strong> <br />
+                          <input type="file" name="fileToUpload" id="fileToUpload" required class="inputText">
+                      </div>
+
+                      <div class="form-group">
+                          <strong>Paypal Email Address</strong> <br />
+                          <input name="donation_paypal_email" type="text" id="donation_paypal_email" value="<?php echo $row_rsUser['paypal_email']; ?>" class="inputText">
+                      </div>
+
+                  </div>
+               </div>
+            </div>
+
+        </div>
+     </div>
+</div>
+
+<input type="submit" value="Create New Fund Request" class="inputText">
   <input type="hidden" name="user_id" value="<?php echo $_SESSION['MM_UserId']; ?>">
   <input type="hidden" name="MM_insert" value="form1">
 </form>
+<!-- InstanceEndEditable -->
+</div>
+</div>
+
+
+</div><!-- middle col -->
+
+<?php include('inc_featured.php'); ?>
+
+
+</div><!-- / inner .row -->
+</div>
+</section>
+
+<section class="custom-footer">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
+       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="assets/js/bootstrap.js"></script>
+
 </body>
-</html>
+<!-- InstanceEnd --></html>
 <?php
 mysql_free_result($rsCategory);
 

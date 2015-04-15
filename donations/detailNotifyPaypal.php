@@ -146,7 +146,7 @@ if (strcmp ($res, "VERIFIED") == 0) {
   $donar_user_id = $customArr['donar_user_id'];
 
   $insertSQL = sprintf("INSERT INTO donations_received set did = %s, donar_user_id = %s, donar_paypal_email = %s, donar_amount = %s, donar_transaction_id = %s, donar_dt = %s, donar_transaction_details = %s, donar_transaction_status = %s, donar_message = %s",
-                       GetSQLValueString($did, "int"),
+                       GetSQLValueString($did, "text"),
                        GetSQLValueString($donar_user_id, "text"),
                        GetSQLValueString($_POST['payer_email'], "text"),
                        GetSQLValueString($_POST['mc_gross'], "double"),

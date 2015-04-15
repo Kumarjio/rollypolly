@@ -18,6 +18,7 @@ session_start();
 
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/theme1.css" rel="stylesheet">
+<link href="assets/css/site.css" rel="stylesheet">
 
 
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
@@ -49,52 +50,37 @@ session_start();
     
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav ">
+          <?php if (!empty($_SESSION['MM_UserId'])) { ?>
         <li class="active">
-          <a href="#">Link</a>
+          <a href="logout.php">Logout</a>
         </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
+        <li class="active">
+          <a href="login.php">Login</a>
+        </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
         <li>
-          <a href="#">Link</a>
+          <a href="register.php">Register</a>
         </li>
-        <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li>
-              <a href="#">Something else here</a>
-            </li>
-            <li>
-              <a href="#">Separated link</a>
-            </li>
-            <li>
-              <a href="#">One more separated link</a>
-            </li>
-          </ul>
+          <?php } ?>
+        <li>
+          <a href="new.php">Create</a>
         </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
+        <?php if (!empty($_SESSION['MM_UserId'])) { ?>
         <li>
-          <a href="#">Link</a>
+          <a href="javascript:;">Welcome, <?php echo $_SESSION['MM_Name']; ?></a>
         </li>
+          <?php } ?>
         <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li>
-              <a href="#">Something else here</a>
-            </li>
-            <li>
-              <a href="#">Separated link</a>
+              <a href="#">Contact Us</a>
             </li>
           </ul>
         </li>
@@ -148,12 +134,9 @@ session_start();
 <!-- InstanceEndEditable -->
 
 
-        <div class="page-header">
 <!-- InstanceBeginEditable name="EditRegion4" -->
 <h3>Store catalog <small>Subtext for header</small></h3>
 <!-- InstanceEndEditable -->
-
-</div>
 
 <div class="row">
 <div class="col-lg-12">

@@ -78,57 +78,293 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   header(sprintf("Location: %s", $insertGoTo));
 }
 ?>
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
-<meta charset="UTF-8">
-<title>Register New User</title>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Base page</title>
+<!-- InstanceEndEditable -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700italic,700,500&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<link href="assets/css/theme1.css" rel="stylesheet">
+<link href="assets/css/site.css" rel="stylesheet">
+
+
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+<!--[if lt IE 7]>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon">
+<link rel="icon" href="assets/ico/favicon.ico" type="image/x-icon">
+
+<!-- InstanceBeginEditable name="head" -->
+<meta charset="UTF-8">
+
+<!-- InstanceEndEditable -->
+</head>
 <body>
-<h1>Register</h1>
+<div class="wrap">
+<section>
+<nav class="navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/">godonateme.com</a>
+    </div>
+    
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav ">
+          <?php if (!empty($_SESSION['MM_UserId'])) { ?>
+        <li class="active">
+          <a href="logout.php">Logout</a>
+        </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
+        <li class="active">
+          <a href="login.php">Login</a>
+        </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
+        <li>
+          <a href="register.php">Register</a>
+        </li>
+          <?php } ?>
+        <li>
+          <a href="new.php">Create</a>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <?php if (!empty($_SESSION['MM_UserId'])) { ?>
+        <li>
+          <a href="javascript:;">Welcome, <?php echo $_SESSION['MM_Name']; ?></a>
+        </li>
+          <?php } ?>
+        <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Contact Us</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</nav>
+</section>
+<section class="top-section">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <h1>
+        godonateme.com
+      </h1>
+    </div>
+    <div class="col-md-4  col-lg-5 col-sm-6 col-xs-6">
+<?php include('inc_googleadsense.php'); ?>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <?php include('inc_category.php'); ?>
+      </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+<!-- InstanceBeginEditable name="EditRegion5" -->
+
+<!-- InstanceEndEditable -->
+
+
+<!-- InstanceBeginEditable name="EditRegion4" -->
+
+<!-- InstanceEndEditable -->
+
+<div class="row">
+<div class="col-lg-12">
+<!-- InstanceBeginEditable name="EditRegion3" -->
 <form ACTION="<?php echo $editFormAction; ?>" id="form1" name="form1" method="POST">
-  <p>
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
-  </p>
-  <p>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-  </p>
-  <p>Confirm Password:
-<input type="password" name="confirmPassword" id="confirmPassword" required>
-  </p>
-  <p>
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required>
-  </p>
-  <p>
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" required>
-  </p>
-  <p>
-    <label for="paypal_email">Paypal Email:</label>
-    <input type="text" name="paypal_email" id="paypal_email" required>
-  </p>
-  <p>Gender: 
-    <label>
-      <input name="gender" type="radio" id="gender_0" value="Male" checked>
-      Male</label> 
-    <label>
-      <input type="radio" name="gender" value="Female" id="gender_1">
-      Female</label>
-  </p>
-  <p>
-    <label for="age">Age:</label>
-    <input type="number" name="age" id="age" min="18" max="200">
-    <br>
-  </p>
-  <p>
-    <input type="submit" name="submit" id="submit" value="Register as a new user">
-  </p>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group" id="accordion">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseDetail">Register New User</a>
+                  </h4>
+              </div>
+              <div id="collapseDetail" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                      <div class="form-group">
+                          <strong>Username</strong> <br />
+                          <input type="text" name="username" id="username" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Password</strong> <br />
+                          <input type="password" name="password" id="password" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Confirm Password</strong> <br />
+                          <input type="password" name="confirmPassword" id="confirmPassword" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Email</strong> <br />
+                          <input type="email" name="email" id="email" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Name</strong> <br />
+                          <input type="text" name="name" id="name" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Paypal Email</strong> <br />
+                          <input type="text" name="paypal_email" id="paypal_email" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Gender</strong> <br />
+                          <input name="gender" type="radio" id="gender_0" value="Male" checked>
+                          <label for="gender_0">Male</label> 
+                          <input type="radio" name="gender" value="Female" id="gender_1">
+                          <label for="gender_1">Female</label>
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Age</strong> <br />
+                          <input type="number" name="age" id="age" min="18" max="200" class="inputText" />
+                       </div>
+
+                  </div>
+               </div>
+            </div>
+
+        </div>
+     </div>
+</div>
+    <input type="submit" name="submit" id="submit" value="Register as a new user" class="inputText">
   <input type="hidden" name="MM_insert" value="form1">
 </form>
 <p></p>
+<!-- InstanceEndEditable -->
+</div>
+</div>
+
+
+</div><!-- middle col -->
+
+<?php include('inc_featured.php'); ?>
+
+
+</div><!-- / inner .row -->
+</div>
+</section>
+
+<section class="custom-footer">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div>
+            <ul class="list-unstyled">
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+              <li>
+                 <a>Link anchor</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
+       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="assets/js/bootstrap.js"></script>
+
 </body>
-</html>
+<!-- InstanceEnd --></html>

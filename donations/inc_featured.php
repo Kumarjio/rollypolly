@@ -1,4 +1,7 @@
 <?php require_once('../Connections/connWork.php'); ?>
+<?php 
+if (empty($hide_inc_featured)) {
+  ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -32,32 +35,43 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 mysql_select_db($database_connWork, $connWork);
-$query_rsView = "SELECT * FROM donations WHERE is_featured = 1 AND donation_status = 1 AND donation_payment_status = 'Completed' ORDER BY donation_created ASC";
-$rsView = mysql_query($query_rsView, $connWork) or die(mysql_error());
-$row_rsView = mysql_fetch_assoc($rsView);
-$totalRows_rsView = mysql_num_rows($rsView);
+$query_rsViewFeatured = "SELECT * FROM donations as d LEFT JOIN donations_calc_received
+ as r ON d.did = r.did2 WHERE d.is_featured = 1 AND d.donation_status = 1 AND d.donation_payment_status = 'Completed' ORDER BY d.donation_created ASC";
+$rsViewFeatured = mysql_query($query_rsViewFeatured, $connWork) or die(mysql_error());
+$row_rsViewFeatured = mysql_fetch_assoc($rsViewFeatured);
+$totalRows_rsViewFeatured = mysql_num_rows($rsViewFeatured);
 ?>
-<?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
+<?php if ($totalRows_rsViewFeatured > 0) { // Show if recordset not empty ?>
 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 <div class="row">
+<h3 align="center">Featured Listings</h3>
   <?php do { ?>
+  <?php $percentage = $row_rsViewFeatured['total_amount'] * (100 / $row_rsViewFeatured['donation_needed']); ?>
   <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
       <div class="panel panel-default">
-      <img class="img-responsive" style="width: 100%;" src="images/<?php echo $row_rsView['user_id']; ?>/thumbs/<?php echo $row_rsView['donation_image']; ?>" alt="" />
+      <img class="img-responsive" style="width: 100%;" src="images/<?php echo $row_rsViewFeatured['user_id']; ?>/thumbs/<?php echo $row_rsViewFeatured['donation_image']; ?>" alt="" />
         <div class="panel-body">
         <p class="lead text-danger text-center">
-          <a href="detail.php?did=<?php echo $row_rsView['did']; ?>"><?php echo $row_rsView['donation_title']; ?></a>
+          <a href="detail.php?did=<?php echo $row_rsViewFeatured['did']; ?>"><?php echo $row_rsViewFeatured['donation_title']; ?></a>
         </p>
         <p>
-          <a class="btn btn-warning btn-md btn-block" href="detail.php?did=<?php echo $row_rsView['did']; ?>">$ <?php echo $row_rsView['donation_needed']; ?></a>
+          <a class="btn btn-warning btn-md btn-block" href="detail.php?did=<?php echo $row_rsViewFeatured['did']; ?>"> $ <?php echo $row_rsViewFeatured['donation_needed'];?>
+                      <?php if ($row_rsViewFeatured['total_amount'] > 0) { ?>
+                       / $ <?php echo $row_rsViewFeatured['total_amount']; ?>
+                      / $ <?php echo $row_rsViewFeatured['donation_needed'] - $row_rsViewFeatured['total_amount']; ?>
+                      <?php } ?></a>
         </p>
+        <div class="progress">
+          <div class="bar" title="<?php echo $percentage; ?>" style="width: <?php echo $percentage; ?>%;"></div>
+        </div>
       </div>
     </div>
   </div>
-  <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>
+  <?php } while ($row_rsViewFeatured = mysql_fetch_assoc($rsViewFeatured)); ?>
 </div>
 </div>
 <?php } // Show if recordset not empty ?>
 <?php
-mysql_free_result($rsView);
+mysql_free_result($rsViewFeatured);
 ?>
+<?php } ?>

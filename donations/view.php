@@ -1,5 +1,7 @@
 <?php require_once('../Connections/connWork.php'); ?>
 <?php
+session_start();
+
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -96,6 +98,7 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
 
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/theme1.css" rel="stylesheet">
+<link href="assets/css/site.css" rel="stylesheet">
 
 
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
@@ -127,52 +130,37 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
     
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav ">
+          <?php if (!empty($_SESSION['MM_UserId'])) { ?>
         <li class="active">
-          <a href="#">Link</a>
+          <a href="logout.php">Logout</a>
         </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
+        <li class="active">
+          <a href="login.php">Login</a>
+        </li>
+          <?php } ?>
+          <?php if (empty($_SESSION['MM_UserId'])) { ?>
         <li>
-          <a href="#">Link</a>
+          <a href="register.php">Register</a>
         </li>
-        <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li>
-              <a href="#">Something else here</a>
-            </li>
-            <li>
-              <a href="#">Separated link</a>
-            </li>
-            <li>
-              <a href="#">One more separated link</a>
-            </li>
-          </ul>
+          <?php } ?>
+        <li>
+          <a href="new.php">Create</a>
         </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
+        <?php if (!empty($_SESSION['MM_UserId'])) { ?>
         <li>
-          <a href="#">Link</a>
+          <a href="javascript:;">Welcome, <?php echo $_SESSION['MM_Name']; ?></a>
         </li>
+          <?php } ?>
         <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li>
-              <a href="#">Something else here</a>
-            </li>
-            <li>
-              <a href="#">Separated link</a>
+              <a href="#">Contact Us</a>
             </li>
           </ul>
         </li>
@@ -209,12 +197,9 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
 <!-- InstanceEndEditable -->
 
 
-        <div class="page-header">
 <!-- InstanceBeginEditable name="EditRegion4" -->
 <h3>Donations <small>Requested</small></h3>
 <!-- InstanceEndEditable -->
-
-</div>
 
 <div class="row">
 <div class="col-lg-12">
@@ -222,6 +207,7 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
 <?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
     <div class="row">
     <?php do { ?>
+  <?php $percentage = $row_rsView['total_amount'] * (100 / $row_rsView['donation_needed']); ?>
         <!-- for loop starts -->
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="panel panel-default">
@@ -232,7 +218,14 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
                     </h4>
                     <p class="text-danger">
                       $ <?php echo $row_rsView['donation_needed'];?>
+                      <?php if ($row_rsView['total_amount'] > 0) { ?>
+                       / $ <?php echo $row_rsView['total_amount']; ?>
+                      / $ <?php echo $row_rsView['donation_needed'] - $row_rsView['total_amount']; ?>
+                      <?php } ?>
                     </p>
+                    <div class="progress">
+                      <div class="bar" title="<?php echo $percentage; ?>" style="width: <?php echo $percentage; ?>%;"></div>
+                    </div>
                 </div>
             </div>
         </div>
