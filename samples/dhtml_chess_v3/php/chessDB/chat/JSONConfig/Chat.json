@@ -1,0 +1,21 @@
+{
+    "sql": "select * from chess_chat where id=?",
+	"table": "chess_chat",
+	"columns": {
+		"id" : {
+			"db": "int auto_increment not null primary key"
+		},
+        "channel": {
+            "db": "varchar(64)",
+            "access": "rw"
+        },
+		"created": {
+			"db": "datetime",
+			"access": "rw"
+		},
+        "messages": {
+            "class": "ChatMessages",
+            "access": "r"
+        }
+	}
+}

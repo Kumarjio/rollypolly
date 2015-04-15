@@ -1,0 +1,47 @@
+{
+	"table": "chess_move",
+	"columns": {
+		"id": "int auto_increment not null primary key",
+		"game_id": {
+			"db": "int",
+			"access": "rw",
+            "references": "chess_game(id) on delete cascade"
+		},
+		"notation": {
+			"db": "varchar(32)",
+			"access": "rw",
+			"alias": "m"
+		},
+		"from_square": {
+			"db": "varchar(15)",
+			"access": "rw",
+			"alias": "from"
+		},
+		"to_square": {
+			"db": "varchar(15)",
+			"access": "rw",
+			"alias": "to"
+		},
+		"start_variation": {
+			"db": "char(1) default 0",
+			"access": "rw"
+		},
+		"end_variation": {
+			"db": "char(1) default 0",
+			"access": "rw"
+		},
+		"fen_id": {
+			"db": "int",
+			"access": "rw"
+		},
+		"comment": {
+			"db": "text",
+			"access": "rw"
+		},
+		"action": {
+			"db": "varchar(512)",
+			"access": "rw"
+		}
+	},
+	"indexes": ["game_id", "fen_id"]
+}

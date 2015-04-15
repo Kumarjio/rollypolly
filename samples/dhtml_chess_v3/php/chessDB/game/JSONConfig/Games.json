@@ -1,0 +1,4 @@
+{
+	"model": "Game",
+	"sql": "select id,white,black,result,event,site,eco,game_date,round from chess_game where database_id=?"
+}

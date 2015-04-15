@@ -1,0 +1,11 @@
+{
+	"sql": "select * from chess_fen where fen = ?",
+	"table": "chess_fen",
+	"idField" : "id",
+	"constructBy" : "fen",
+	"columns" : {
+		"id": "int auto_increment not null primary key",
+		"fen": "varchar(128)"
+	},
+	"indexes": ["fen"]
+}

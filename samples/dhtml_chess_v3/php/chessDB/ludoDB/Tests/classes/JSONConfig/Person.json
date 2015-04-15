@@ -1,0 +1,55 @@
+{
+    "table": "Person",
+    "idField": "id",
+    "constructBy": "id",
+    "columns": {
+        "id": "int auto_increment not null primary key",
+        "firstname": {
+            "db": "varchar(32)",
+            "access": "rw"
+        },
+        "lastname": {
+            "db": "varchar(32)",
+            "access" : "rw"
+        },
+        "address": {
+            "db": "varchar(128)",
+            "access": "rw"
+        },
+        "zip": {
+            "db": "varchar(5)",
+            "access": "rw"
+        },
+        "nick_name": {
+            "db": "varchar(32)",
+            "alias": "nick",
+            "access": "rw"
+        },
+        "phone": {
+            "class": "PhoneCollection",
+            "access": "r"
+        },
+        "city": {
+            "class": "City",
+            "get": "getCity",
+            "access": "r"
+        },
+        "sex": {
+            "db" : "varchar(10)",
+            "default": "female",
+            "access": "rw"
+        }
+    },
+    "static": {
+        "type": "person",
+        "coffee": {
+            "value": "Segafredo",
+            "otherConfig": {}
+        }
+    },
+    "classes": {
+        "city": {
+            "fk": "zip"
+        }
+    }
+}

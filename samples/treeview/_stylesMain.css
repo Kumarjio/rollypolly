@@ -1,0 +1,89 @@
+/* Just some base styles not needed for example to function */
+.general-style1  { font-family: Verdana, Arial, Helvetica, sans-serif !important; overflow:scroll; }
+
+.general-style1 , .general-style1 form, .general-style1 ul, .general-style1 li, .general-style1 p, .general-style1 h1, .general-style1 h2, .general-style1 h3, .general-style1 h4, .general-style1 h5
+{
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.general-style1  { background-color: #606061 !important; color: #ffffff !important; margin: 0 !important; }
+.general-style1img { border: none !important; }
+.general-style1p
+{
+	font-size: 1em !important;
+	margin: 0 0 1em 0 !important;
+}
+
+.general-style1  { font-size: 100% !important; /* IE hack */ }
+.general-style1 { font-size: 1em !important; /* Sets base font size to 16px */ }
+.general-style1 table { font-size: 100% !important; /* IE hack */ }
+.general-style1 input, .general-style1 select, .general-style1 textarea, .general-style1 th, .general-style1 td { font-size: 1em !important; }
+	
+/* CSS Tree menu styles */
+.general-style1 ol.tree
+{
+	padding: 0 0 0 30px !important;
+	width: 300px !important;
+}
+	.general-style1 li 
+	{ 
+		position: relative !important; 
+		margin-left: -15px !important;
+		list-style: none !important;
+	}
+	.general-style1 li.file
+	{
+		margin-left: -1px !important;
+	}
+		.general-style1 li.file a
+		{
+			background: url(document.png) 0 0 no-repeat !important;
+			color: #fff !important;
+			padding-left: 21px !important;
+			text-decoration: none !important;
+			display: block !important;
+		}
+		.general-style1 li.file a[href *= '.pdf']	{ background: url(document.png) 0 0 no-repeat !important; }
+		.general-style1 li.file a[href *= '.html']	{ background: url(document.png) 0 0 no-repeat !important; }
+		.general-style1 li.file a[href $= '.css']	{ background: url(document.png) 0 0 no-repeat !important; }
+		.general-style1 li.file a[href $= '.js']		{ background: url(document.png) 0 0 no-repeat !important; }
+	.general-style1 li input
+	{
+		position: absolute !important;
+		left: 0 !important;
+		margin-left: 0 !important;
+		opacity: 0 !important;
+		z-index: 2 !important;
+		cursor: pointer !important;
+		height: 1em !important;
+		width: 1em !important;
+		top: 0 !important;
+	}
+		.general-style1 li input + ol
+		{
+			background: url(toggle-small-expand.png) 40px 0 no-repeat !important;
+			margin: -16px 0 0 -44px !important; /* 15px */
+			height: 1em !important;
+		}
+		.general-style1 li input + ol > li { display: none !important; margin-left: -14px !important; padding-left: 1px !important; }
+	.general-style1 li label
+	{
+		background: url(folder-horizontal.png) 15px 1px no-repeat !important;
+		cursor: pointer !important;
+		display: block !important;
+		padding-left: 37px !important;
+	}
+
+	.general-style1 li input:checked + ol
+	{
+		background: url(toggle-small.png) 40px 5px no-repeat !important;
+		margin: -16px 0 0 -44px !important; /* 20px */
+		padding: 1.563em 0 0 80px !important;
+		height: auto !important;
+	}
+		.general-style1 li input:checked + ol > li { display: block !important; margin: 0 0 0.125em !important;  /* 2px */}
+		.general-style1 li input:checked + ol > li:last-child { margin: 0 0 0.063em !important; /* 1px */ }
+
+.acustom {
+  text-decoration:none;
+}

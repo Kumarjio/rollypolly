@@ -1,0 +1,47 @@
+{
+    "table": "chess_player",
+    "sql": "select * from chess_player where id=?",
+    "columns": {
+        "id": "int auto_increment not null primary key",
+        "username": {
+            "db": "varchar(64) unique",
+            "access": "rw",
+            "canConstructBy": true
+        },
+        "password": {
+            "db": "varchar(128)",
+            "access": "w",
+            "canConstructBy": true
+        },
+        "full_name": {
+            "db": "varchar(255)",
+            "access": "rw"
+        },
+        "email": {
+            "db": "varchar(255)",
+            "access": "rw"
+        },
+        "online_player": {
+            "db": "char(1)",
+			"default" : "0"
+        },
+        "country": {
+            "db": "varchar(100)",
+            "access": "rw"
+        },
+        "active": {
+            "db": "char(1)",
+            "access": "r"
+        },
+        "user_access": {
+            "db": "int default 0",
+            "access": "r"
+        },
+		"title":{
+			"db":"varchar(10)",
+			"access": "rw",
+			"default": ""
+		},
+        "indexes": ["country", "active", "online_player", "username", "password", "full_name"]
+    }
+}

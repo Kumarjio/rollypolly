@@ -1,0 +1,37 @@
+{
+	"table":"Client",
+	"idField":"id",
+	"constructBy":"id",
+	"columns":{
+		"id":"int auto_increment not null primary key",
+		"firstname":{
+			"db": "varchar(32)",
+			"access":"rw"
+		},
+		"lastname":{
+			"db": "varchar(32)",
+			"access": "rw"
+		},
+		"address":{
+			"db": "varchar(64)",
+			"access": "rw"
+		},
+		"zip":{
+			"db": "varchar(5)",
+			"access": "rw"
+		},
+		"phone":{
+			"class":"PhoneCollection"
+		},
+		"city":{
+			"class":"City",
+			"get":"getCity"
+		}
+
+	},
+	"classes":{
+		"City":{
+			"fk":"zip"
+		}
+	}
+}

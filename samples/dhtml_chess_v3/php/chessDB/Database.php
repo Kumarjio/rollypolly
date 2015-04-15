@@ -1,0 +1,61 @@
+<?php
+/**
+ * LudoDBModel for chess databases, i.e. collection of games.
+ * User: Alf Magne
+ * Date: 18.01.13
+ */
+class Database extends LudoDBModel implements LudoDBService
+{
+    protected $JSONConfig = true;
+
+    public function getSql(){
+        return is_numeric($this->arguments[0]) ?
+            "select id,title,folder_id from chess_database where id=?":
+            "select id,title,folder_id from chess_database where title=?";
+    }
+
+    public function validateArguments($service, $arguments){
+        return count($arguments) === 1;
+    }
+    public function validateServiceData($service, $arguments){
+        return true;
+    }
+    public function getValidServices(){
+        return array('games','read','save','randomGame');
+    }
+
+    public function getOnSuccessMessageFor($service){
+        return "";
+    }
+
+    public function setFolderId($id){
+        $this->setValue('folder_id', $id);
+    }
+
+    public function randomGame(){
+        $id = $this->db->getValue("select id from chess_game where database_id=? order by rand()", $this->getId());
+        if(isset($id)){
+            $game = new Game($id);
+            return $game->read();
+        }else{
+            throw new LudoDBObjectNotFoundException("No games found in selected database(" . $this->getId().")");
+        }
+    }
+
+    public function games(){
+        $g = new Games($this->getId());
+        return $g->read();
+    }
+
+    public function setTitle($title){
+        $this->setValue('title', $title);
+    }
+
+    public function getTitle(){
+        return $this->getValue('title');
+    }
+
+    protected function clearCache(){
+        LudoDBCache::clearByClass("Folders");
+    }
+}

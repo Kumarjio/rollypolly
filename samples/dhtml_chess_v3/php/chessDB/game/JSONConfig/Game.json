@@ -1,0 +1,129 @@
+{
+	"table":"chess_game",
+	"constructBy":"id",
+	"columns":{
+		"id":"int auto_increment not null primary key",
+		"fen_id":{
+			"db":"int"
+		},
+		"fen":{
+			"db": "varchar(128)",
+			"access": "rw"
+		},
+        "white_id": {
+            "db": "int",
+            "references": "chess_player(id)",
+            "access": "rw"
+        },
+        "black_id": {
+            "db": "int",
+            "access": "rw",
+            "references": "chess_player(id)"
+        },
+        "white": {
+            "db": "varchar(255)",
+            "access": "rw"
+        },
+        "black": {
+            "db": "varchar(255)",
+            "access": "rw"
+        },
+        "eco": {
+            "db": "varchar(32)",
+            "access": "rw"
+        },
+        "site": {
+            "db": "varchar(512)",
+            "access": "rw"
+        },
+        "plycount": {
+            "db": "int",
+            "access": "rw"
+        },
+        "time_control_id": {
+            "db": "int",
+            "access": "w"
+        },
+        "timecontrol": {
+            "db": "varchar(32)",
+            "access": "rw"
+        },
+        "round": {
+            "db": "varchar(32)",
+            "access": "rw"
+        },
+        "event": {
+            "db": "varchar(512)",
+            "access": "rw"
+        },
+		"database_id":{
+			"db":"int",
+			"access":"rw",
+            "references": "chess_database(id) on delete cascade",
+            "alias":"databaseId"
+		},
+		"created_by":{
+			"db":"int",
+			"access":"rw"
+		},
+		"creator":{
+			"class":"Player",
+			"fk":"created_by",
+			"get":"getFullName"
+		},
+		"result":{
+			"db":"varchar(64)",
+			"access":"rw",
+            "default": "*"
+		},
+        "game_date":{
+            "db": "varchar(32)",
+            "access": "rw",
+            "alias": "date"
+        },
+        "termination": {
+            "db": "varchar(64)",
+            "access": "rw"
+        },
+        "finished": {
+            "db": "char(1)",
+            "access": "rw",
+            "default": "0"
+        },
+        "comment": {
+            "db": "text",
+            "access" : "rw"
+        },
+		"metadata":{
+			"class":"MetadataCollection",
+            "access": "rw",
+			"set":"setMetadata"
+		},
+		"moves":{
+			"class":"moves",
+            "access": "rw",
+			"set":"setMoves"
+		},
+        "last_moves":{
+            "db":"varchar(64)",
+            "access": "rw",
+            "default" : ""
+        },
+		"game_category": {
+			"db": "int",
+			"default": "1"
+		},
+		"rated" : {
+			"db": "char(1)",
+			"default": "1"
+		},
+        "public" : {
+            "db": "char(1)",
+            "access": "r"
+        }
+	},
+	"indexes":["database_id", "created_by","game_category","white_id","black_id"],
+    "static":{
+        "type": "game"
+    }
+}

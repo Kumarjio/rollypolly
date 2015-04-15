@@ -1,0 +1,9 @@
+{
+	"table": "Manager",
+	"columns": {
+		"salary":{
+			"db": "int"
+		},
+		"zip": "varchar(10)"
+	}
+}
