@@ -51,7 +51,7 @@ if (!empty($_GET['cid'])) {
 
 mysql_select_db($database_connWork, $connWork);
 $query_rsView = "SELECT * FROM donations as d LEFT JOIN donations_calc_received
- as r ON d.did = r.did2 WHERE d.is_featured = 0 AND d.donation_status = 1 AND d.donation_payment_status = 'Completed' $cid ORDER BY d.donation_created ASC";
+ as r ON d.did = r.did2 WHERE d.donation_status = 1 AND d.donation_payment_status = 'Completed' $cid ORDER BY d.donation_created ASC";
 $query_limit_rsView = sprintf("%s LIMIT %d, %d", $query_rsView, $startRow_rsView, $maxRows_rsView);
 $rsView = mysql_query($query_limit_rsView, $connWork) or die(mysql_error());
 $row_rsView = mysql_fetch_assoc($rsView);
@@ -173,13 +173,8 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
 <section class="top-section">
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-      <h1>
-        godonateme.com
-      </h1>
-    </div>
-    <div class="col-md-4  col-lg-5 col-sm-6 col-xs-6">
-<?php include('inc_googleadsense.php'); ?>
+    <div class="col-lg-12">
+      <?php include('inc_googleadsense.php'); ?>
     </div>
   </div>
 </div>

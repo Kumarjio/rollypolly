@@ -93,13 +93,8 @@ session_start();
 <section class="top-section">
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-      <h1>
-        godonateme.com
-      </h1>
-    </div>
-    <div class="col-md-4  col-lg-5 col-sm-6 col-xs-6">
-<?php include('inc_googleadsense.php'); ?>
+    <div class="col-lg-12">
+      <?php include('inc_googleadsense.php'); ?>
     </div>
   </div>
 </div>
