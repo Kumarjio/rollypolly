@@ -1,12 +1,23 @@
 <?php
-
 define('RDIR', dirname(dirname(__FILE__)));
 define('SITEDIR', RDIR);
+define('SITE_DIR', SITEDIR);
+set_include_path(get_include_path(). PATH_SEPARATOR. SITEDIR.'/libraries/library');
+
+
 $subTitle = '';
 $pageTitle = '';
 try {
 include_once('../Connections/connAds.php');
 $connMainAdodb = $connAdsAdodb;
+
+//zend autoloadar
+require_once('Zend/Loader/Autoloader.php');
+if (class_exists('Zend_Loader_Autoloader', false))
+{
+  Zend_Loader_Autoloader::getInstance();
+}
+
 function pr($d) { echo '<pre>'; print_r($d); echo '</pre>'; }
 
 function isMobile()
@@ -70,6 +81,10 @@ function myautoload($class_name) {
    }
 }
 spl_autoload_register('myautoload', true);
+
+$params = array();
+$params['lifetime'] = (60 * 60 * 24 * 5);
+$Library_cache = new Library_cache($params);
 
 
 //$modelGeneral = new Models_General();
@@ -228,6 +243,30 @@ if (!empty($s)) {
   exit;
 }
 
+$ciVal = !empty($_GET['ciVal']) ? trim($_GET['ciVal']) : '';
+$ciValURL = !empty($_GET['ciVal']) ? url_name_v2(trim($_GET['ciVal'])) : '';
+if (!empty($ciVal)) {
+  $tmpDetails = $CMSActivities->getKeywordURL($ciValURL);
+  if (!empty($tmpDetails)) {
+    $id = $tmpDetails['keyword_id'];
+    $q = $tmpDetails['kw_url_lookup'];
+  } else {
+    $d = array();
+    $d['keyword'] = $ciVal;
+    $d['kw_url_lookup'] = $ciValURL;
+    $d['created_on'] = date('Y-m-d H:i:s');
+    $d['ip'] = $_SERVER['REMOTE_ADDR'];
+    $d['views'] = 0;
+    $d['status'] = 1;
+    $d['new'] = 1;
+    $q = $sURL;
+    $id = $CMSActivities->addDetails('short_keywords', $d);
+  }
+  $url = 'http://cms-'.$q.'.mkgalaxy.com';
+  header("Location: ".$url);
+  exit;
+}
+
 $query = "update short_keywords set views = views + 1 where keyword_id = ?";
 $connMainAdodb->Execute($query, array($id));
 
@@ -273,6 +312,9 @@ $contentForTemplate = ob_get_clean();
 	float:left;
 }
 
+nav#main .searchform input {
+  width: 40%;
+}
 </style>
 
 </head>
@@ -323,8 +365,9 @@ $contentForTemplate = ob_get_clean();
 	<label>
 		<span class="visuallyhidden">Search</span>
 		<input type="text" name="s" value="<?php echo $s; ?>"
-			placeholder="Search...">
+			placeholder="Search Keyword">
 	</label>
+<?php //include('googlecity.php'); ?>
 </form>
 	</nav>
 
@@ -364,7 +407,7 @@ $contentForTemplate = ob_get_clean();
 	</aside>
     <?php } ?>
   <aside class="widget">
-  <?php include('googleads.php'); ?>
+  <?php //include('googleads.php'); ?>
   </aside>
   <?php if (!empty($topKeywords)) { ?>
 	<aside class="widget">

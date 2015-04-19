@@ -265,7 +265,7 @@ if ($totalRows_rsDetail > 0) { // Show if recordset not empty
 } // Show if recordset not empty ?>
           
 <h1>Area and Details Manager</h1>
-<p><a href="main.php">Back To Main</a></p>
+<p><a href="main.php">Back To Main</a> | <a href="areaSmooth.php?id=<?php echo $_GET['id']; ?>">Back To Smooth Area Selection</a></p>
 <form action="<?php echo $editFormAction; ?>" id="form1" name="form1" method="POST">
 <table border="0" cellspacing="1" cellpadding="5">
   <tr>

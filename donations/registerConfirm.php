@@ -34,6 +34,11 @@ session_start();
 <link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon">
 <link rel="icon" href="assets/ico/favicon.ico" type="image/x-icon">
 
+<?php 
+require_once('inc_category.php'); 
+
+?>
+
 <!-- InstanceBeginEditable name="head" -->
 <meta charset="UTF-8">
 
@@ -48,44 +53,7 @@ session_start();
        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/">godonateme.com</a>
     </div>
     
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav ">
-          <?php if (!empty($_SESSION['MM_UserId'])) { ?>
-        <li class="active">
-          <a href="logout.php">Logout</a>
-        </li>
-          <?php } ?>
-          <?php if (empty($_SESSION['MM_UserId'])) { ?>
-        <li class="active">
-          <a href="login.php">Login</a>
-        </li>
-          <?php } ?>
-          <?php if (empty($_SESSION['MM_UserId'])) { ?>
-        <li>
-          <a href="register.php">Register</a>
-        </li>
-          <?php } ?>
-        <li>
-          <a href="new.php">Create</a>
-        </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
-        <?php if (!empty($_SESSION['MM_UserId'])) { ?>
-        <li>
-          <a href="javascript:;">Welcome, <?php echo $_SESSION['MM_Name']; ?></a>
-        </li>
-          <?php } ?>
-        <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Contact Us</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+    <?php include('inc_menu.php'); ?>
     
   </div>
 </nav>
@@ -104,7 +72,7 @@ session_start();
 <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-        <?php include('inc_category.php'); ?>
+        <?php echo $leftSideCategoryLink; ?>
       </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 <!-- InstanceBeginEditable name="EditRegion5" -->
@@ -145,19 +113,7 @@ session_start();
           <div>
             <ul class="list-unstyled">
               <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
+                 <a href="contactus.php">Contact Us</a>
               </li>
             </ul>
           </div>
@@ -166,19 +122,7 @@ session_start();
           <div>
             <ul class="list-unstyled">
               <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
+                 <a href="terms.php">Terms & Conditions</a>
               </li>
             </ul>
           </div>
@@ -187,19 +131,7 @@ session_start();
           <div>
             <ul class="list-unstyled">
               <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
-              </li>
-              <li>
-                 <a>Link anchor</a>
+                 <a href="about.php">About Us</a>
               </li>
             </ul>
           </div>

@@ -8,6 +8,7 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+*/ ?>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- godonateme -->
 <ins class="adsbygoogle"
@@ -18,5 +19,3 @@
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-*/ ?>

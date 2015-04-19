@@ -150,6 +150,7 @@ $totalRows_rsView = mysql_num_rows($rsView);
       <td valign="top"><strong>Image Name</strong></td>
       <td valign="top"><strong>Delete</strong></td>
       <td valign="top"><strong>Choose Area</strong></td>
+      <td valign="top"><strong>Choose Smooth Area</strong></td>
     </tr>
       <?php do { ?>
     <tr>
@@ -157,6 +158,7 @@ $totalRows_rsView = mysql_num_rows($rsView);
         <td valign="top"><?php echo $row_rsView['fileName']; ?></td>
         <td valign="top"><a href="main.php?delete_id=<?php echo $row_rsView['id']; ?>&filename=<?php echo urlencode($row_rsView['fileName']); ?>" onClick="var a = confirm('Do you really want to delete this record?'); return a;">Delete</a></td>
         <td valign="top"><a href="area.php?id=<?php echo $row_rsView['id']; ?>">Choose Area</a></td>
+        <td valign="top"><a href="areaSmooth.php?id=<?php echo $row_rsView['id']; ?>">Choose Smooth Area</a></td>
     </tr>
         <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>
   </table>
