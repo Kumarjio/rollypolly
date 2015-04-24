@@ -2,7 +2,7 @@
 define('RDIR', dirname(dirname(__FILE__)));
 define('SITEDIR', RDIR);
 define('SITE_DIR', SITEDIR);
-set_include_path(get_include_path(). PATH_SEPARATOR. SITEDIR.'/libraries/library');
+set_include_path(get_include_path(). PATH_SEPARATOR. SITEDIR.'/libraries/library'. PATH_SEPARATOR. SITEDIR.'/libraries/pear');
 
 
 $subTitle = '';

@@ -33,6 +33,8 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+include('functions.php');
+
 $currentPage = $_SERVER["PHP_SELF"];
 
 $maxRows_rsView = 20;
@@ -80,6 +82,9 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 }
 $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $queryString_rsView);
 
+
+//$detailResult = $Models_General->fetchAll($query_limit_rsView, array(), 3600);
+//pr($detailResult);
 ?>
 <!DOCTYPE html>
 <html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -168,35 +173,7 @@ require_once('inc_category.php');
 <div class="col-lg-12">
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
-    <div class="row">
-    <?php do { ?>
-  <?php $percentage = $row_rsView['total_amount'] * (100 / $row_rsView['donation_needed']); ?>
-        <!-- for loop starts -->
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-default">
-                <img class="img-responsive" style="width: 100%;" src="images/<?php echo $row_rsView['user_id']; ?>/thumbs/<?php echo $row_rsView['donation_image']; ?>" alt="" />
-                <div class="panel-body text-center" style="height: 120px;">
-                    <h4>
-                        <a href="detail.php?did=<?php echo $row_rsView['did']; ?>"><?php echo $row_rsView['donation_title']; ?></a>
-                    </h4>
-                    <p class="text-danger">
-                      $ <?php echo $row_rsView['donation_needed'];?>
-                      <?php if ($row_rsView['total_amount'] > 0) { ?>
-                       / $ <?php echo $row_rsView['total_amount']; ?>
-                      / $ <?php echo $row_rsView['donation_needed'] - $row_rsView['total_amount']; ?>
-                      <?php } ?>
-                    </p>
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage; ?>%;">
-                        <?php echo $percentage; ?>%
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- for loop ends -->
-    <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>
-</div>
+    <?php include('inc_view.php'); ?>
 
 <p> Records <?php echo ($startRow_rsView + 1) ?> to <?php echo min($startRow_rsView + $maxRows_rsView, $totalRows_rsView) ?> of <?php echo $totalRows_rsView ?></p>
 
@@ -258,50 +235,12 @@ require_once('inc_category.php');
 
 <?php include('inc_featured.php'); ?>
 
-
 </div><!-- / inner .row -->
 </div>
 </section>
 
 <section class="custom-footer">
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
-      <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="contactus.php">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="terms.php">Terms & Conditions</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="about.php">About Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
-       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
-    </div>
-  </div>
-</div>
+<?php include('inc_footer.php'); ?>
 </section>
 </div>
 <!-- Le javascript
@@ -310,7 +249,9 @@ require_once('inc_category.php');
 <script src="assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="assets/js/bootstrap.js"></script>
+<!-- InstanceBeginEditable name="EditRegionJS" -->
 
+<!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
 <?php

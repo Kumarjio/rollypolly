@@ -1,7 +1,5 @@
 <?php require_once('../Connections/connWork.php'); ?>
 <?php
-session_start();
-
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -33,53 +31,14 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-$currentPage = $_SERVER["PHP_SELF"];
-
-$maxRows_rsView = 20;
-$pageNum_rsView = 0;
-if (isset($_GET['pageNum_rsView'])) {
-  $pageNum_rsView = $_GET['pageNum_rsView'];
-}
-$startRow_rsView = $pageNum_rsView * $maxRows_rsView;
-
-$gcid = array();
-$cid = "";
-if (!empty($_GET['cid'])) {
-    $cid = ' AND d.donation_category_id = '.GetSQLValueString($_GET['cid'], 'int');
-}
-
-
 mysql_select_db($database_connWork, $connWork);
 $query_rsView = "SELECT * FROM donations as d LEFT JOIN donations_calc_received
- as r ON d.did = r.did2 WHERE d.donation_status = 1 AND d.donation_payment_status = 'Completed' $cid ORDER BY d.donation_created ASC";
-$query_limit_rsView = sprintf("%s LIMIT %d, %d", $query_rsView, $startRow_rsView, $maxRows_rsView);
-$rsView = mysql_query($query_limit_rsView, $connWork) or die(mysql_error());
+ as r ON d.did = r.did2 WHERE d.donation_status = 1 AND d.donation_payment_status = 'Completed' ORDER BY RAND()";
+$rsView = mysql_query($query_rsView, $connWork) or die(mysql_error());
 $row_rsView = mysql_fetch_assoc($rsView);
+$totalRows_rsView = mysql_num_rows($rsView);
 
-if (isset($_GET['totalRows_rsView'])) {
-  $totalRows_rsView = $_GET['totalRows_rsView'];
-} else {
-  $all_rsView = mysql_query($query_rsView);
-  $totalRows_rsView = mysql_num_rows($all_rsView);
-}
-$totalPages_rsView = ceil($totalRows_rsView/$maxRows_rsView)-1;
-
-$queryString_rsView = "";
-if (!empty($_SERVER['QUERY_STRING'])) {
-  $params = explode("&", $_SERVER['QUERY_STRING']);
-  $newParams = array();
-  foreach ($params as $param) {
-    if (stristr($param, "pageNum_rsView") == false && 
-        stristr($param, "totalRows_rsView") == false) {
-      array_push($newParams, $param);
-    }
-  }
-  if (count($newParams) != 0) {
-    $queryString_rsView = "&" . htmlentities(implode("&", $newParams));
-  }
-}
-$queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $queryString_rsView);
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -87,7 +46,7 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>View Donations Requested</title>
+<title>GoDonateMe.com</title>
 <!-- InstanceEndEditable -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -156,99 +115,43 @@ require_once('inc_category.php');
       </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 <!-- InstanceBeginEditable name="EditRegion5" -->
-
+    
 <!-- InstanceEndEditable -->
 
 
 <!-- InstanceBeginEditable name="EditRegion4" -->
-<h3>Donations <small>Requested</small></h3>
+<div class="page-header">
+<h3>Donate Me</h3>
+</div>
 <!-- InstanceEndEditable -->
 
 <div class="row">
 <div class="col-lg-12">
 <!-- InstanceBeginEditable name="EditRegion3" -->
+<p>Would you like to donate someone. Just go through the history of each individual and donate to person whom you like to.</p>
+
+<div class="page-header">
+<h3>How it Works For Donars</h3>
+</div>
+<p><strong>Step 1: Choose any campaign</strong></p>
+<p>Go through all the campaign or search through the campaign and choose any one campaign which you like. If you dont know which campaign to choose from then from featured campaign on the right side of page and choose it.</p>
+<p><strong>Step 2: Go to detail page</strong></p>
+<p>Go to detail page of that campaign, enter the amount you want to donate and click donate. You can donate without login if you want to donate anonymous or if you like to then register, login and then donate.</p>
+
+<div class="page-header">
+<h3>How it Works For Creators</h3>
+</div>
+<p><strong>Step 1: Register to site</strong></p>
+<p>Go to <a href="register.php">register page</a>, fill out the form and then go to<a href="login.php"> login page</a> and enter your login details and login to the site.</p>
+<p><strong>Step 2: Create New Campaign</strong></p>
+<p>Go to &quot;<a href="new.php">Create new listing</a>&quot; page and fill out the form. After you submit the form you will be asked to pay some x amount to activate your campaign. There are separate fees for normal campaign and featured campaign. All payments are accepted through paypal. After you are done with paypal payment processing, your listing will be enabled to view for all the users.</p>
+
+<div class="page-header">
+<h3>Popular | Near Me | Almost There</h3>
+</div>
 <?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
-    <div class="row">
-    <?php do { ?>
-  <?php $percentage = $row_rsView['total_amount'] * (100 / $row_rsView['donation_needed']); ?>
-        <!-- for loop starts -->
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-default">
-                <img class="img-responsive" style="width: 100%;" src="images/<?php echo $row_rsView['user_id']; ?>/thumbs/<?php echo $row_rsView['donation_image']; ?>" alt="" />
-                <div class="panel-body text-center" style="height: 120px;">
-                    <h4>
-                        <a href="detail.php?did=<?php echo $row_rsView['did']; ?>"><?php echo $row_rsView['donation_title']; ?></a>
-                    </h4>
-                    <p class="text-danger">
-                      $ <?php echo $row_rsView['donation_needed'];?>
-                      <?php if ($row_rsView['total_amount'] > 0) { ?>
-                       / $ <?php echo $row_rsView['total_amount']; ?>
-                      / $ <?php echo $row_rsView['donation_needed'] - $row_rsView['total_amount']; ?>
-                      <?php } ?>
-                    </p>
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage; ?>%;">
-                        <?php echo $percentage; ?>%
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- for loop ends -->
-    <?php } while ($row_rsView = mysql_fetch_assoc($rsView)); ?>
-</div>
-
-<p> Records <?php echo ($startRow_rsView + 1) ?> to <?php echo min($startRow_rsView + $maxRows_rsView, $totalRows_rsView) ?> of <?php echo $totalRows_rsView ?></p>
-
-<hr>
-
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <ul class="pagination">
-      <?php if ($pageNum_rsView > 0) { // Show if not first page ?>
-      <li>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, 0, $queryString_rsView); ?>"><<</a>
-      </li>
-      <?php } // Show if not first page ?>
-      <?php if ($pageNum_rsView > 0) { // Show if not first page ?>
-      <li>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, max(0, $pageNum_rsView - 1), $queryString_rsView); ?>"><</a>
-      </li>
-      <?php } // Show if not first page ?>
-      <?php if ($pageNum_rsView < $totalPages_rsView) { // Show if not last page ?>
-      <li>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, min($totalPages_rsView, $pageNum_rsView + 1), $queryString_rsView); ?>">></a>
-      </li>
-      <?php } // Show if not last page ?>
-      <?php if ($pageNum_rsView < $totalPages_rsView) { // Show if not last page ?>
-      <li>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, $totalPages_rsView, $queryString_rsView); ?>">>></a>
-      </li>
-      <?php } // Show if not last page ?>
-    </ul>
-</div>
-</div>
-<!--
-  <table border="0">
-    <tr>
-      <td><?php if ($pageNum_rsView > 0) { // Show if not first page ?>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, 0, $queryString_rsView); ?>">First</a>
-        <?php } // Show if not first page ?></td>
-      <td><?php if ($pageNum_rsView > 0) { // Show if not first page ?>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, max(0, $pageNum_rsView - 1), $queryString_rsView); ?>">Previous</a>
-        <?php } // Show if not first page ?></td>
-      <td><?php if ($pageNum_rsView < $totalPages_rsView) { // Show if not last page ?>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, min($totalPages_rsView, $pageNum_rsView + 1), $queryString_rsView); ?>">Next</a>
-        <?php } // Show if not last page ?></td>
-      <td><?php if ($pageNum_rsView < $totalPages_rsView) { // Show if not last page ?>
-        <a href="<?php printf("%s?pageNum_rsView=%d%s", $currentPage, $totalPages_rsView, $queryString_rsView); ?>">Last</a>
-        <?php } // Show if not last page ?></td>
-    </tr>
-  </table>-->
+    <?php include('inc_view.php'); ?>
 <?php } // Show if recordset not empty ?>
-<?php if ($totalRows_rsView == 0) { // Show if recordset empty ?>
-  <p>No Record Found.</p>
-  <?php } // Show if recordset empty ?>
 <!-- InstanceEndEditable -->
 </div>
 </div>
@@ -258,50 +161,12 @@ require_once('inc_category.php');
 
 <?php include('inc_featured.php'); ?>
 
-
 </div><!-- / inner .row -->
 </div>
 </section>
 
 <section class="custom-footer">
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
-      <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="contactus.php">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="terms.php">Terms & Conditions</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="about.php">About Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
-       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
-    </div>
-  </div>
-</div>
+<?php include('inc_footer.php'); ?>
 </section>
 </div>
 <!-- Le javascript
@@ -310,7 +175,9 @@ require_once('inc_category.php');
 <script src="assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="assets/js/bootstrap.js"></script>
+<!-- InstanceBeginEditable name="EditRegionJS" -->
 
+<!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
 <?php

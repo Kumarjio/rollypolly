@@ -1,6 +1,19 @@
 <?php
 include(SITEDIR.'/libraries/rss.php');
 $subTitle = $pageTitle.' News';
+//caching
+require_once('Cache/Lite/Output.php');
+
+// Set a few options
+$options = array(
+    'cacheDir' => SITEDIR.'/cache/Pear_cache/',
+    'lifeTime' => (3600 * 24 * 365 * 10)
+);
+$cache = new Cache_Lite_Output($options);
+$key = 'rssNews_'.md5($pageTitle);
+
+if (!($cache->start($key))) {
+
 ?>
 <?php
 //$myRss = new RSSParser("http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&q=".urlencode($pageTitle)."&cf=all&output=rss"); 
@@ -27,5 +40,7 @@ if ($myRss_RSSmax > 0) {
   <?php
 }
 echo "<!--http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&q=".urlencode($pageTitle)."&cf=all&output=rss-->";
+    $cache->end();
+}
 ?>
 <?php include('googleads.php'); ?>

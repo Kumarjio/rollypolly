@@ -1,6 +1,4 @@
 <?php
-require_once('../Connections/connWork.php');
-
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -39,7 +37,7 @@ try {
 define("DEBUG", 1);
 // Set to 0 once you're ready to go live
 define("USE_SANDBOX", 0);
-define("LOG_FILE", "./ipn.log");
+define("LOG_FILE", "./ipn2.log");
 // Read POST data
 // reading posted data directly from $_POST causes serialization
 // issues with array data in POST. Reading raw POST data from input stream instead.
@@ -119,8 +117,11 @@ $tokens = explode("\r\n\r\n", trim($res));
 $res = trim(end($tokens));
 if (strcmp ($res, "VERIFIED") == 0) {
 	// check whether the payment_status is Completed
+  $pending_reason = '';
   if ($_POST['payment_status'] !== 'Completed') {
-    throw new Exception('error in payment status. '.var_export($_POST, 1));
+    if (!empty($_POST['pending_reason'])) {
+      $pending_reason = $_POST['pending_reason'];
+    }
   }
 	// check that txn_id has not been previously processed
 	// check that receiver_email is your PayPal email
@@ -135,27 +136,31 @@ if (strcmp ($res, "VERIFIED") == 0) {
 	//$txn_id = $_POST['txn_id'];
 	//$receiver_email = $_POST['receiver_email'];
 	//$payer_email = $_POST['payer_email'];
-  $custom = stripslashes(urldecode($_POST['custom']));
+  /*$custom = stripslashes(urldecode($_POST['custom']));
   error_log(date('[Y-m-d H:i e] '). "custom: $custom ". PHP_EOL, 3, LOG_FILE);
   $customArr = json_decode($custom, 1);
   error_log(date('[Y-m-d H:i e] '). "customArr: ". var_export($customArr, 1). PHP_EOL, 3, LOG_FILE);
   $did = $customArr['did'];
-  $is_featured = !empty($customArr['is_featured']) ? $customArr['is_featured'] : 0;
+  $donar_user_id = $customArr['donar_user_id'];
 
-  $insertSQL = sprintf("UPDATE donations set donation_payment_details = %s, donation_payment_status = %s, donation_payment_date = %s, is_featured = %s WHERE did = %s",
+  $insertSQL = sprintf("INSERT INTO donations_received set did = %s, donar_user_id = %s, donar_paypal_email = %s, donar_amount = %s, donar_transaction_id = %s, donar_dt = %s, donar_transaction_details = %s, donar_transaction_status = %s, donar_message = %s",
+                       GetSQLValueString($did, "text"),
+                       GetSQLValueString($donar_user_id, "text"),
+                       GetSQLValueString($_POST['payer_email'], "text"),
+                       GetSQLValueString($_POST['mc_gross'], "double"),
+                       GetSQLValueString($_POST['txn_id'], "text"),
+                       GetSQLValueString(date('Y-m-d H:i:s', strtotime($_POST['payment_date'])), "date"),
                        GetSQLValueString(json_encode($_POST), "text"),
                        GetSQLValueString($_POST['payment_status'], "text"),
-                       GetSQLValueString(date('Y-m-d H:i:s', strtotime($_POST['payment_date'])), "text"),
-                       GetSQLValueString($is_featured, "int"),
-                       GetSQLValueString($did, "text"));
+                       GetSQLValueString($pending_reason, "text"));
 
   mysql_select_db($database_connWork, $connWork);
   $Result1 = @mysql_query($insertSQL, $connWork);
   if (empty($Result1)) {
     throw new Exception(mysql_error());
-  }
+  }*/
 
-	
+	error_log(date('[Y-m-d H:i e] '). "Post Data:  ". var_export($_POST, 1). PHP_EOL, 3, LOG_FILE);
 	if(DEBUG == true) {
     error_log(date('[Y-m-d H:i e] '). "Update Query: $insertSQL ". PHP_EOL, 3, LOG_FILE);
 		error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, LOG_FILE);

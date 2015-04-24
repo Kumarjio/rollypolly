@@ -46,7 +46,7 @@ $percentage = $row_DetailRS1['total_amount'] * (100 / $row_DetailRS1['donation_n
 
 ?>
 <!DOCTYPE html>
-<html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
+<html lang="en"><!-- InstanceBegin template="/Templates/Donations_detail1.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
@@ -115,15 +115,8 @@ require_once('inc_category.php');
 <section>
 <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-        <?php echo $leftSideCategoryLink; ?>
-      </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-<!-- InstanceBeginEditable name="EditRegion5" -->
-    
-<!-- InstanceEndEditable -->
 
-
+    <div class="col-lg-12"><!-- middle col -->
 <!-- InstanceBeginEditable name="EditRegion4" -->
 <div class="page-header">
 <h3><?php echo $row_DetailRS1['donation_title']; ?></h3>
@@ -188,10 +181,10 @@ require_once('inc_category.php');
 
 </div><!-- middle col -->
 
-<?php include('inc_featured.php'); ?>
+
 
 </div><!-- / inner .row -->
-</div>
+</div><!-- / container -->
 </section>
 
 <section class="custom-footer">
@@ -204,9 +197,7 @@ require_once('inc_category.php');
 <script src="assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="assets/js/bootstrap.js"></script>
-<!-- InstanceBeginEditable name="EditRegionJS" -->
 
-<!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
 <?php

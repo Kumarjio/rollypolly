@@ -87,6 +87,13 @@ $rsView = mysql_query($query_rsView, $connP2) or die(mysql_error());
 $row_rsView = mysql_fetch_assoc($rsView);
 $totalRows_rsView = mysql_num_rows($rsView);
 
+if (!empty($row_rsView['resizeImg'])){
+    $imageDir = IMAGEDIRNEW;
+} else {
+    $imageDir = IMAGEDIR;
+}
+
+
 $colname_rsDetail = "-1";
 if (isset($_GET['id'])) {
   $colname_rsDetail = $_GET['id'];
@@ -97,7 +104,7 @@ $rsDetail = mysql_query($query_rsDetail, $connP2) or die(mysql_error());
 $row_rsDetail = mysql_fetch_assoc($rsDetail);
 $totalRows_rsDetail = mysql_num_rows($rsDetail);
 
-$imageFile = IMAGEDIR.$row_rsView['fileName'];
+$imageFile = $imageDir.$row_rsView['fileName'];
 $imageSize = getimagesize($imageFile);
 
 ?>
@@ -135,7 +142,7 @@ body {
 <script language="javascript">
 $(document).ready(function(){
   //added
-  init('<?php echo IMAGEDIR.$row_rsView['fileName']; ?>');
+  init('<?php echo $imageDir.$row_rsView['fileName']; ?>');
   <?php if (!empty($areaMarker)) { // Show if recordset not empty
   foreach ($areaMarker as $row_rsDetail) {
           $arr = explode(',', $row_rsDetail['coordinates']);

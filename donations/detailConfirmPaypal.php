@@ -95,50 +95,12 @@ require_once('inc_category.php');
 
 <?php include('inc_featured.php'); ?>
 
-
 </div><!-- / inner .row -->
 </div>
 </section>
 
 <section class="custom-footer">
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
-      <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="contactus.php">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="terms.php">Terms & Conditions</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="about.php">About Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
-       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
-    </div>
-  </div>
-</div>
+<?php include('inc_footer.php'); ?>
 </section>
 </div>
 <!-- Le javascript
@@ -147,6 +109,8 @@ require_once('inc_category.php');
 <script src="assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="assets/js/bootstrap.js"></script>
+<!-- InstanceBeginEditable name="EditRegionJS" -->
 
+<!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>

@@ -41,9 +41,9 @@ $rsViewFeatured = mysql_query($query_rsViewFeatured, $connWork) or die(mysql_err
 $row_rsViewFeatured = mysql_fetch_assoc($rsViewFeatured);
 $totalRows_rsViewFeatured = mysql_num_rows($rsViewFeatured);
 ?>
-<?php if ($totalRows_rsViewFeatured > 0) { // Show if recordset not empty ?>
 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 <div class="row">
+<?php if ($totalRows_rsViewFeatured > 0) { // Show if recordset not empty ?>
 <h3 align="center">Featured Listings</h3>
   <?php do { ?>
   <?php $percentage = $row_rsViewFeatured['total_amount'] * (100 / $row_rsViewFeatured['donation_needed']); ?>
@@ -52,7 +52,7 @@ $totalRows_rsViewFeatured = mysql_num_rows($rsViewFeatured);
       <img class="img-responsive" style="width: 100%;" src="images/<?php echo $row_rsViewFeatured['user_id']; ?>/thumbs/<?php echo $row_rsViewFeatured['donation_image']; ?>" alt="" />
         <div class="panel-body">
         <p class="lead text-danger text-center">
-          <a href="detail.php?did=<?php echo $row_rsViewFeatured['did']; ?>"><?php echo $row_rsViewFeatured['donation_title']; ?></a>
+          <a href="detailList.php?did=<?php echo $row_rsViewFeatured['did']; ?>"><?php echo $row_rsViewFeatured['donation_title']; ?></a>
         </p>
         <p>
           <a class="btn btn-warning btn-md btn-block" href="detail.php?did=<?php echo $row_rsViewFeatured['did']; ?>"> $ <?php echo $row_rsViewFeatured['donation_needed'];?>
@@ -68,9 +68,11 @@ $totalRows_rsViewFeatured = mysql_num_rows($rsViewFeatured);
     </div>
   </div>
   <?php } while ($row_rsViewFeatured = mysql_fetch_assoc($rsViewFeatured)); ?>
-</div>
-</div>
 <?php } // Show if recordset not empty ?>
+
+<?php include('../donations/inc_googleadsense.php'); ?>
+</div>
+</div>
 <?php
 mysql_free_result($rsViewFeatured);
 ?>

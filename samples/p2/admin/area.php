@@ -84,6 +84,12 @@ $rsView = mysql_query($query_rsView, $connP2) or die(mysql_error());
 $row_rsView = mysql_fetch_assoc($rsView);
 $totalRows_rsView = mysql_num_rows($rsView);
 
+if (!empty($row_rsView['resizeImg'])){
+    $imageDir = IMAGEDIRNEW;
+} else {
+    $imageDir = IMAGEDIR;
+}
+
 $colname_rsDetail = "-1";
 if (isset($_GET['id'])) {
   $colname_rsDetail = $_GET['id'];
@@ -277,7 +283,7 @@ if ($totalRows_rsDetail > 0) { // Show if recordset not empty
       <br><br>
       <div id="imagemap4posis">
         <div id="mapContainer" class="effect">
-          <img src="<?php echo IMAGEDIR.$row_rsView['fileName']; ?>" id="main" class="imgmapMainImage" alt="" usemap="#map" />
+          <img src="<?php echo $imageDir.$row_rsView['fileName']; ?>" id="main" class="imgmapMainImage" alt="" usemap="#map" />
           <map name="map" id="map">
             <?php if (!empty($areaMarker)) { // Show if recordset not empty ?>
             <?php foreach ($areaMarker as $row_rsDetail) { ?>

@@ -153,7 +153,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $did = guid();
-  $insertSQL = sprintf("INSERT INTO donations (did, user_id, donation_title, donation_desc, donation_needed, donation_category_id, donation_image, donation_paypal_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+  $insertSQL = sprintf("INSERT INTO donations (did, user_id, donation_title, donation_desc, donation_needed, donation_category_id, donation_image, donation_paypal_email, city, state, country, lat, lng) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($did, "text"),
                        GetSQLValueString($_POST['user_id'], "int"),
                        GetSQLValueString($_POST['donation_title'], "text"),
@@ -161,7 +161,12 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['donation_needed'], "double"),
                        GetSQLValueString($_POST['donation_category_id'], "int"),
                        GetSQLValueString($_POST['fileToUpload'], "text"),
-                       GetSQLValueString($_POST['donation_paypal_email'], "text"));
+                       GetSQLValueString($_POST['donation_paypal_email'], "text"),
+                       GetSQLValueString($_POST['city'], "text"),
+                       GetSQLValueString($_POST['state'], "text"),
+                       GetSQLValueString($_POST['country'], "text"),
+                       GetSQLValueString($_POST['lat'], "double"),
+                       GetSQLValueString($_POST['lng'], "double"));
 
   mysql_select_db($database_connWork, $connWork);
   $Result1 = mysql_query($insertSQL, $connWork) or die(mysql_error());
@@ -339,6 +344,16 @@ require_once('inc_category.php');
                           <input name="donation_paypal_email" type="text" id="donation_paypal_email" value="<?php echo $row_rsUser['paypal_email']; ?>" class="inputText">
                       </div>
 
+                      <div class="form-group">
+                          <strong>Your Location</strong> <br />
+                          <input name="location" type="text" id="location" value="" onFocus="geolocate()" class="inputText addressBox" required>
+                          <input type="hidden" id="city" name="city" value="" />
+                          <input type="hidden" id="state" name="state" value="" />
+                          <input type="hidden" id="country" name="country" value="" />
+                          <input type="hidden" id="lat" name="lat" value="" />
+                          <input type="hidden" id="lng" name="lng" value="" />
+                      </div>
+
                   </div>
                </div>
             </div>
@@ -360,50 +375,12 @@ require_once('inc_category.php');
 
 <?php include('inc_featured.php'); ?>
 
-
 </div><!-- / inner .row -->
 </div>
 </section>
 
 <section class="custom-footer">
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
-      <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="contactus.php">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="terms.php">Terms & Conditions</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="about.php">About Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
-       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
-    </div>
-  </div>
-</div>
+<?php include('inc_footer.php'); ?>
 </section>
 </div>
 <!-- Le javascript
@@ -412,7 +389,83 @@ require_once('inc_category.php');
 <script src="assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="assets/js/bootstrap.js"></script>
+<!-- InstanceBeginEditable name="EditRegionJS" -->
+<script src="//maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+<script language="javascript">
 
+//autocomplete
+
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+function init() {
+      // Create the autocomplete object, restricting the search
+      // to geographical location types.
+      autocomplete = new google.maps.places.Autocomplete(
+          /** @type {HTMLInputElement} */(document.getElementById('location')),
+          { types: ['geocode'] });
+      // When the user selects an address from the dropdown,
+      // populate the address fields in the form.
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        fillInAddress();
+      });
+    }
+
+function fillInAddress() {
+      // Get the place details from the autocomplete object.
+      var place = autocomplete.getPlace();
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      $('#lat').val(lat);
+      $('#lng').val(lng);
+      for (key in place.address_components) {
+        var loc = place.address_components[key];
+        if (loc.types[0] === "locality") {
+          $('#city').val(loc.long_name);
+        } else if (loc.types[0] === "administrative_area_level_1") {
+          $('#state').val(loc.long_name);
+        } else if (loc.types[0] === "country") {
+          $('#country').val(loc.long_name);
+        } else {
+          continue;
+        }
+      }
+      return;
+    }
+
+function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var geolocation = new google.maps.LatLng(
+              position.coords.latitude, position.coords.longitude);
+          autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,
+              geolocation));
+        });
+      }
+    }
+google.maps.event.addDomListener(window, 'load', init);
+
+$(document).on("keypress", 'form', function (e) {
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+        var str = e.target.className;
+        var n = str.indexOf("addressBox");
+        if (n === -1) {
+          return true;
+        } else {
+          return false;
+        }
+        return true;
+    }
+});
+</script>
+<!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
 <?php

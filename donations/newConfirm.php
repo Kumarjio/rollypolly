@@ -1,3 +1,4 @@
+<?php require_once('../Connections/connWork.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -43,9 +44,48 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
 include('config.php');
 $amount = NEW_LISTING_PRICE;
 $amountFeatured = NEW_LISTING_FEATURED_PRICE;
+if (IS_FREE) {
+  $insertSQL = sprintf("UPDATE donations set donation_payment_status = 'Completed' WHERE did = %s",
+                       GetSQLValueString($_GET['did'], "text"));
+  mysql_select_db($database_connWork, $connWork);
+  $Result1 = @mysql_query($insertSQL, $connWork);
+  header("Location: /");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en"><!-- InstanceBegin template="/Templates/Donations_theme1.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -185,50 +225,12 @@ require_once('inc_category.php');
 
 <?php include('inc_featured.php'); ?>
 
-
 </div><!-- / inner .row -->
 </div>
 </section>
 
 <section class="custom-footer">
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
-      <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="contactus.php">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4  col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="terms.php">Terms & Conditions</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
-          <div>
-            <ul class="list-unstyled">
-              <li>
-                 <a href="about.php">About Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
-       <span class="text-right"><?php include('inc_siteaddr.php'); ?></span>
-    </div>
-  </div>
-</div>
+<?php include('inc_footer.php'); ?>
 </section>
 </div>
 <!-- Le javascript
@@ -237,6 +239,8 @@ require_once('inc_category.php');
 <script src="assets/js/jquery.js" type="text/javascript"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="assets/js/bootstrap.js"></script>
+<!-- InstanceBeginEditable name="EditRegionJS" -->
 
+<!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>

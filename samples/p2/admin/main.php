@@ -39,6 +39,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 $target_dir = IMAGEUPLOADDIR;
+$target_dir_new = IMAGEUPLOADDIRNEW;
+
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   if (empty($_FILES["fileToUpload"]["name"])) {
     $error = "Please choose the file to upload.";
@@ -50,6 +52,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $filename = basename($_FILES["fileToUpload"]["name"]);
   $_POST['fileName'] = $filename;
   $target_file = $target_dir . $filename;
+  $target_file_new = $target_dir_new.$filename;
   $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
   // Check if image file is a actual image or fake image
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -74,13 +77,28 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   }
 }
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+    if (!empty($_POST['resizeImg'])) {
+        // *** Include the class
+        include("resize_class.php");
+        // *** 1) Initialize / load image
+        $resizeObj = new resize($target_file);
+         
+        // *** 2) Resize image (options: exact, portrait, landscape, auto, crop)
+        $resizeObj->resizeImage($_POST['width'], $_POST['height'], 'auto');
+         
+        // *** 3) Save image
+        $resizeObj->saveImage($target_file_new, 100);
+    }
 }
 
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO main_image (fileName) VALUES (%s)",
-                       GetSQLValueString($_POST['fileName'], "text"));
+  $insertSQL = sprintf("INSERT INTO main_image (fileName, resizeImg, width, height) VALUES (%s, %s, %s, %s)",
+                       GetSQLValueString($_POST['fileName'], "text"),
+                       GetSQLValueString($_POST['resizeImg'], "text"),
+                       GetSQLValueString($_POST['width'], "text"),
+                       GetSQLValueString($_POST['height'], "text"));
 
   mysql_select_db($database_connP2, $connP2);
   $Result1 = mysql_query($insertSQL, $connP2) or die(mysql_error());
@@ -136,11 +154,32 @@ $totalRows_rsView = mysql_num_rows($rsView);
 <div class="error"><?php echo $error; ?></div>
 <?php } ?>
 <form action="<?php echo $editFormAction; ?>" method="POST" enctype="multipart/form-data" name="form1" id="form1">
-<label for="fileToUpload">File:</label>
-<input type="file" name="fileToUpload" id="fileToUpload">
-<input type="submit" name="submit" id="subm it" value="Submit">
-<input type="hidden" name="fileName" id="fileName">
-<input type="hidden" name="MM_insert" value="form1">
+    <p>
+    <label for="fileToUpload">File:</label>
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    </p>
+    <p><strong>Resize Image: 
+        </strong>
+        <input name="resizeImg" type="radio" id="resizeImg_1" value="1">
+        <label for="resizeImg_1">Yes </label>
+        <input name="resizeImg" type="radio" id="resizeImg_0" value="0" checked="checked">
+    <label for="resizeImg_0">No</label>
+    , </p>
+    <p><strong>Resize Image Dimension:
+    </strong>
+        <label for="width"><br>
+        <br>
+        <strong>Width:</strong></label>
+        <input name="width" type="text" id="width" value="324">
+        px
+        <label for="textfield"><strong>Height:</strong></label>
+    <input name="height" type="text" id="height" value="240">
+    px</p>
+    <p>
+        <input type="submit" name="submit" id="subm it" value="Submit">
+        <input type="hidden" name="fileName" id="fileName">
+        <input type="hidden" name="MM_insert" value="form1">
+    </p>
 </form>
 <?php if ($totalRows_rsView > 0) { // Show if recordset not empty ?>
   <h3>View All Images</h3>
