@@ -1,0 +1,241 @@
+<?php require_once('../../Connections/connGroupjole.php'); ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+?>
+<?php
+// *** Validate request to login to this site.
+if (!isset($_SESSION)) {
+  session_start();
+}
+
+$loginFormAction = $_SERVER['PHP_SELF'];
+if (isset($_GET['accesscheck'])) {
+  $_SESSION['PrevUrl'] = $_GET['accesscheck'];
+}
+if (isset($_POST['username'])) {
+  $loginUsername=$_POST['username'];
+  $password=$_POST['password'];
+  $MM_fldUserAuthorization = "access_level";
+  $MM_redirectLoginSuccess = "loginConfirm.php";
+  $MM_redirectLoginFailed = "loginFailure.php";
+  $MM_redirecttoReferrer = false;
+  mysql_select_db($database_connGroupjole, $connGroupjole);
+  	
+  $LoginRS__query=sprintf("SELECT username, password, access_level, user_id, name FROM users WHERE username=%s AND password=%s",
+  GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text")); 
+   
+  $LoginRS = mysql_query($LoginRS__query, $connGroupjole) or die(mysql_error());
+  $loginFoundUser = mysql_num_rows($LoginRS);
+  if ($loginFoundUser) {
+    
+    $loginStrGroup  = mysql_result($LoginRS,0,'access_level');
+    $loginUserId  = mysql_result($LoginRS,0,'user_id');
+    $loginName  = mysql_result($LoginRS,0,'name');
+    
+	if (PHP_VERSION >= 5.1) {session_regenerate_id(true);} else {session_regenerate_id();}
+    //declare two session variables and assign them
+    $_SESSION['MM_Username'] = $loginUsername;
+    $_SESSION['MM_UserGroup'] = $loginStrGroup;
+    $_SESSION['MM_UserId'] = $loginUserId;
+    $_SESSION['MM_Name'] = $loginName;	      
+
+    if (isset($_SESSION['PrevUrl'])) {
+      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
+    }
+    header("Location: " . $MM_redirectLoginSuccess );
+  }
+  else {
+    header("Location: ". $MM_redirectLoginFailed );
+  }
+}
+?>
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/groupjole_theme2.dwt.php" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Login</title>
+<!-- InstanceEndEditable -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Le styles -->
+<!-- GOOGLE FONT-->
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700italic,700,500&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<!-- /GOOGLE FONT-->
+
+
+<!-- Le styles -->
+<!-- Latest compiled and minified CSS BS 3.0. -->
+<link href="../assets/css/bootstrap.css" rel="stylesheet">
+<link href="../assets/css/theme2.css" rel="stylesheet">
+<link href="../assets/css/site.css" rel="stylesheet">
+
+
+
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+<!--[if lt IE 7]>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+<![endif]-->
+<!-- Fav and touch icons -->
+
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="../assets/ico/favicon.ico">
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="//maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+
+<script src="../assets/js/ang/app.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../assets/js/bootstrap.js"></script>
+
+<script src="../assets/js/googleMap.js"></script>
+
+<!-- InstanceBeginEditable name="head" -->
+<meta charset="UTF-8">
+
+<!-- InstanceEndEditable -->
+</head>
+<body data-ng-app="GroupJole">
+<div class="wrap">
+	<section>
+		<nav class="navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/">GroupJole.Com</a>
+				</div>
+				<?php include('../includes/topMenu.php'); ?>
+			</div>
+		</nav>
+	</section>
+	<section class="top-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<h4>
+						(Create Your Groups & Events)
+					</h4>
+				</div>
+				<div class="col-lg-8">
+					<form class="navbar-form ng-pristine ng-valid pull-right" role="search" action="../index.php" method="get">
+						<div class="form-group">
+							<input type="text" name="keyword" id="keyword" class="form-control widthAuto" placeholder="Enter Keyword ...." value="<?php echo !empty($_GET['keyword']) ? $_GET['keyword'] : ''; ?>" />
+							<input type="text" name="addressID" id="addressID" class="form-control widthAuto addressBox" placeholder="Enter City Name ...."  onFocus="geolocate()" value="<?php echo !empty($_GET['addressID']) ? $_GET['addressID'] : ''; ?>" /><input type="hidden" name="s_lat" id="s_lat" value="<?php echo !empty($_GET['s_lat']) ? $_GET['s_lat'] : ''; ?>" /><input type="hidden" name="s_lng" id="s_lng" value="<?php echo !empty($_GET['s_lng']) ? $_GET['s_lng'] : ''; ?>" />
+						</div> <button type="submit" class="btn btn-default">Search</button>
+					</form>
+				</div>
+			</div>
+       
+		</div>
+	</section>
+	<section>
+		<div class="container">
+			<div class="row">
+			    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<?php include('../includes/offers.php'); ?>
+					<?php include('../includes/more.php'); ?>
+				</div>
+                
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-9 hidden-xs">
+                    <div class="page-header">
+                    <!-- InstanceBeginEditable name="EditRegionSubHead" -->
+                        <h3>Login</h3>
+                    <!-- InstanceEndEditable -->
+                    </div>
+<!-- InstanceBeginEditable name="EditRegion3" -->
+<form action="<?php echo $loginFormAction; ?>" id="form1" name="form1" method="POST">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group" id="accordion">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseDetail">Login</a>
+                  </h4>
+              </div>
+              <div id="collapseDetail" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                      <div class="form-group">
+                          <strong>Username</strong> <br />
+                          <input type="text" name="username" id="username" required class="inputText" />
+                       </div>
+                       
+                      <div class="form-group">
+                          <strong>Password</strong> <br />
+                          <input type="password" name="password" id="password" required class="inputText" />
+                       </div>
+                  </div>
+               </div>
+            </div>
+
+        </div>
+     </div>
+</div>
+  <p>
+    <input type="submit" name="submit" id="submit" value="Login" class="inputText">
+  </p>
+</form>
+<!-- InstanceEndEditable -->
+		        </div>
+				
+			</div>
+			<hr>
+		</div>
+	</section>
+	<section class="custom-footer">
+		<div class="container">
+			<div class="row">
+				
+				<?php include('../includes/footerLinks.php'); ?>
+				<?php include('../includes/bottomAddress.php'); ?>
+			</div>
+		</div>
+	</section>
+</div>
+
+</body>
+<!-- InstanceEnd --></html>
