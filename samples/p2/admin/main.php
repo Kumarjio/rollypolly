@@ -141,6 +141,12 @@ $totalRows_rsView = mysql_num_rows($rsView);
 <meta charset="UTF-8">
 <title>Main Image Upload</title>
 <style type="text/css">
+body {
+ font-family:Verdana;
+ font-size: 11px; 
+}
+</style>
+<style type="text/css">
 
 .imglist {
   max-height: 70px;
@@ -150,6 +156,7 @@ $totalRows_rsView = mysql_num_rows($rsView);
 
 <body>
 <h1>Main Image Page</h1>
+<p><a href="index.php">Back to Home Page</a></p>
 <?php if (!empty($error)) { ?>
 <div class="error"><?php echo $error; ?></div>
 <?php } ?>

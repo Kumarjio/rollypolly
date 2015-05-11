@@ -6,7 +6,8 @@
 </head>
 
 <body>
-<p>Administration</p>
-<p>Main Area</p>
+<h1>Administration</h1>
+<p><a href="main.php">Main Area</a></p>
+<p><a href="settings.php">Settings</a></p>
 </body>
 </html>

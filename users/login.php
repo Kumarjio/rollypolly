@@ -58,7 +58,7 @@ if ($client->getAccessToken()) {
       $_SESSION['settings'] = $settings[0];
       //$me 			= $plus->people->get('me');
       $optParams 	= array('maxResults' => 100);
-      //$activities 	= $plus->activities->listActivities('me', 'public',$optParams);
+      //$activities 	= q->activities->listActivities('me', 'public',$optParams);
       // The access token may have been updated lazily.
       $_SESSION['access_token'] 		= $client->getAccessToken();
       $email 							= filter_var($user['email'], FILTER_SANITIZE_EMAIL); // get the USER EMAIL ADDRESS using OAuth2

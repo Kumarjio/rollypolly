@@ -45,8 +45,12 @@ if (isset($_GET['pageNum_rsView'])) {
 }
 $startRow_rsView = $pageNum_rsView * $maxRows_rsView;
 
+$colname_rsView = "%";
+if (isset($_GET['id'])) {
+  $colname_rsView = $_GET['id'];
+}
 mysql_select_db($database_connP2, $connP2);
-$query_rsView = "SELECT * FROM main_image";
+$query_rsView = sprintf("SELECT * FROM main_image WHERE id LIKE %s", GetSQLValueString("%" . $colname_rsView . "%", "text"));
 $query_limit_rsView = sprintf("%s LIMIT %d, %d", $query_rsView, $startRow_rsView, $maxRows_rsView);
 $rsView = mysql_query($query_limit_rsView, $connP2) or die(mysql_error());
 $row_rsView = mysql_fetch_assoc($rsView);
@@ -181,7 +185,7 @@ $dataDetails = !empty($v['extraFields']) ? json_decode($v['extraFields'], 1): nu
 
 //echo '</pre>';
     ?>
-        <area shape="poly" coords="<?php echo $v['coordinates']; ?>" href="http://google.com" target="_blank" alt="Hat" id="position_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>"  data-maphilight='{"strokeColor":"0000ff","strokeWidth":2,"fillColor":"ff0000","fillOpacity":0.3}'>
+        <area shape="poly" coords="<?php echo $v['coordinates']; ?>" href="http://google.com" target="_blank" alt="Hat" id="position_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>"  data-maphilight='{"strokeColor":"0000ff","strokeWidth":2,"fillColor":"ff0000","fillOpacity":0.3,"alwaysOn":true}'>
 
 <script>
    $(function() {

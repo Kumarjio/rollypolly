@@ -43,18 +43,18 @@ $target_http_dir = SUBIMAGEDIR.$id.'/';
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   $_POST['extraFields'] = json_encode($_POST['data']);
-  if (!empty($_FILES["imageFile"]["name"])) {
+  if (!empty($_FILES["fileUpload"]["name"])) {
     if (!is_dir($target_dir)) {
       mkdir($target_dir, 0755);
       chmod($target_dir, 0755);
     }
 
-    $filename = basename($_FILES["imageFile"]["name"]);
+    $filename = 'f_'.time().'_'.basename($_FILES["fileUpload"]["name"]);
     $_POST['imageFile'] = $filename;
     $target_file = $target_dir . $filename;
     $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
     // Check if image file is a actual image or fake image
-    $check = getimagesize($_FILES["imageFile"]["tmp_name"]);
+    $check = getimagesize($_FILES["fileUpload"]["tmp_name"]);
     if(empty($check)) {
         $error = "File is not an image.";
         unset($_POST["MM_update"]);
@@ -65,7 +65,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
         unset($_POST["MM_update"]);
     }
     // Check file size
-    /*if ($_FILES["imageFile"]["size"] > 500000) {
+    /*if ($_FILES["fileUpload"]["size"] > 500000) {
         $error = "Sorry, your file is too large.";
         unset($_POST["MM_update"]);
     }*/
@@ -77,8 +77,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   }
 }
 
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-  move_uploaded_file($_FILES["imageFile"]["tmp_name"], $target_file);
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1") && !empty($_FILES["fileUpload"]["name"])) {
+  move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file);
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
@@ -136,6 +136,7 @@ $data = json_decode($row_rsArea['extraFields'], 1);
 
 <body>
 <h1>Edit Area Details</h1>
+<?php if (!empty($error)) echo $error; ?>
 <p><a href="area.php?id=<?php echo $colname_rsMain; ?>">Back To Area Selection</a> | <a href="main.php">Back To Main Page </a></p>
 <form action="<?php echo $editFormAction; ?>" method="POST" enctype="multipart/form-data" name="form1" id="form1">
   <table border="0" cellspacing="1" cellpadding="5">
@@ -145,7 +146,7 @@ $data = json_decode($row_rsArea['extraFields'], 1);
     </tr>
     <tr>
       <td align="right"><strong>Image:</strong></td>
-      <td><input type="file" name="imageFile" id="imageFile">
+      <td><input type="file" name="fileUpload" id="fileUpload">
       <br><?php if (!empty($row_rsArea['imageFile'])) { ?><img src="<?php echo $target_http_dir.$row_rsArea['imageFile']; ?>" class="imglist" /><?php } ?></td>
     </tr>
     <tr>
@@ -161,14 +162,19 @@ $data = json_decode($row_rsArea['extraFields'], 1);
       <td><input name="data[manufacturingPartNumber]" type="text" id="data_manufacturingPartNumber" size="50" value="<?php echo !empty($data['manufacturingPartNumber']) ? $data['manufacturingPartNumber'] : ''; ?>"></td>
     </tr>
     <tr>
-      <td align="right"><strong>Manufacturing Description:</strong></td>
-      <td><input name="data[manufacturingDescription]" type="text" id="data_manufacturingDescription" size="50" value="<?php echo !empty($data['manufacturingDescription']) ? $data['manufacturingDescription'] : ''; ?>"></td>
+        <td align="right"><strong>Manufacturing Description:</strong></td>
+        <td><input name="data[manufacturingDescription]" type="text" id="data_manufacturingDescription" size="50" value="<?php echo !empty($data['manufacturingDescription']) ? $data['manufacturingDescription'] : ''; ?>"></td>
     </tr>
     <tr>
-      <td align="right">&nbsp;</td>
-      <td><input type="submit" name="submit" id="submit" value="Submit">
-      <input name="extraFields" type="hidden" id="extraFields" value="<?php echo $row_rsArea['extraFields']; ?>">
-      <input name="detail_id" type="hidden" id="detail_id" value="<?php echo $row_rsArea['detail_id']; ?>"></td>
+        <td align="right"><strong>URL:</strong></td>
+        <td><input name="data[url]" type="text" id="data_url" size="50" value="<?php echo !empty($data['url']) ? $data['url'] : ''; ?>"></td>
+    </tr>
+    <tr>
+        <td align="right">&nbsp;</td>
+        <td><input type="submit" name="submit" id="submit" value="Submit">
+            <input name="extraFields" type="hidden" id="extraFields" value="<?php echo $row_rsArea['extraFields']; ?>">
+            <input name="detail_id" type="hidden" id="detail_id" value="<?php echo $row_rsArea['detail_id']; ?>"><input type="hidden" name="imageFile" id="imageFile" value="<?php echo $row_rsArea['imageFile']; ?>" />
+            </td>
     </tr>
   </table>
   <input type="hidden" name="MM_update" value="form1">

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<script type="text/javascript" src="../ScriptLibrary/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../ScriptLibrary/dmxDataBindings.js"></script>
+<script type="text/javascript" src="../ScriptLibrary/dmxDataSet.js"></script>
+<script type="text/javascript">
+  /* dmxDataSet name "mangotest" */
+       jQuery.dmxDataSet(
+         {"id": "mangotest", "preset": "YouTube_Video_Search", "url": "http://gdata.youtube.com/feeds/api/videos", "data": {"q": "kizomba", "time": "all_time", "orderby": "relevance", "v": "2", "max-results": "20", "alt": "json"}, "designUrl": "http://gdata.youtube.com/feeds/api/videos?q=kizomba&time=all_time&orderby=relevance&v=2&max-results=20&alt=json", "dataType": "jsonp"}
+       );
+  /* END dmxDataSet name "mangotest" */
+</script>
+</head>
+
+<body>
+<div>Youtube Search</div>
+<div data-binding-id="repeat1" data-binding-repeat="mangotest.feed.entry[0].media$group.media$content" data-binding-html="{{url}}">
+    <p>dd</p>
+</div>
+</body>
+
+</html>
