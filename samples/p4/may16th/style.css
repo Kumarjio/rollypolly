@@ -1,0 +1,31 @@
+/* CSS Document */
+
+#container {
+
+}
+#container #header {
+	width: 960px;
+	background-color: #00CCFF;
+	height: 100px;
+}
+#container #rightnav {
+	background-color: #99CC66;
+	float: right;
+	height: 400px;
+	width: 100px;
+}
+#container #body {
+	background-color: #00FFFF;
+}
+#container #footer {
+	background-color: #3399CC;
+	clear: both;
+	height: 100px;
+	width: 960px;
+}
+#container #leftnav {
+	background-color: #99CC00;
+	float: left;
+	height: 400px;
+	width: 100px;
+}

@@ -2,12 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Untitled Document</title>
+<title>Administrator</title>
 </head>
 
 <body>
 <h1>Administrator</h1>
 <p><a href="people.php">Manage People</a></p>
-<p>Manage Tournament</p>
+<p><a href="tournaments.php">Manage Tournament</a></p>
+<p><a href="pairings.php">Manage Pairings </a></p>
 </body>
 </html>

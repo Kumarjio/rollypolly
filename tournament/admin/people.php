@@ -130,6 +130,7 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
 
 <body>
 <h1>Manage People</h1>
+<p><a href="index.php">Back</a></p>
 <form method="post" name="form1" action="<?php echo $editFormAction; ?>">
     <table>
         <tr valign="baseline">
@@ -197,12 +198,12 @@ $queryString_rsView = sprintf("&totalRows_rsView=%d%s", $totalRows_rsView, $quer
     </p>
     <table border="1" cellpadding="5" cellspacing="0">
         <tr>
-            <td>player_id</td>
-            <td>player_name</td>
-            <td>player_email</td>
-            <td>player_details</td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td><strong>player_id</strong></td>
+            <td><strong>player_name</strong></td>
+            <td><strong>player_email</strong></td>
+            <td><strong>player_details</strong></td>
+            <td><strong>Edit</strong></td>
+            <td><strong>Delete</strong></td>
         </tr>
         <?php do { ?>
             <tr>
