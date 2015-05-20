@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://srvpub.com/adServe/banners?tid=34915_50844_0&size=728x90" ></script>
 <?php
 include(SITEDIR.'/libraries/rss.php');
 $subTitle = $pageTitle.' News';

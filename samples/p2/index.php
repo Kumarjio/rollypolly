@@ -189,6 +189,7 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
     var lifetime = 4000;
       var timeoutStr = {};
       var btnState = {};
+      var dailogState = {};
       <?php if (!empty($return)) { ?>
       <?php foreach ($return as $k => $v) { ?>
       <?php
@@ -200,6 +201,7 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
         ?>
         timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
         btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
+        dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
       $( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog({
             autoOpen: false,
             position: { my: "<?php echo $position['my']; ?>", at: "<?php echo $position['at']; ?>", of: '#mapMainImage' },
@@ -215,12 +217,18 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
                   },
                   click: function() {
                     if (!btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']) {
+						//console.log('1');
+						dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = 1;
+						//console.log('dailog: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                         clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                         btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = 1;
                         $("#btn_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?> span")
                           .removeClass("ui-icon-pin-s")
                           .addClass("ui-icon-pin-w");
                     } else {
+						//console.log('2');
+						dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
+						//console.log('dailog: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                        btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null; 
                        timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = setTimeout(function() {$( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "close" )}, lifetime);
                        $("#btn_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?> span")
@@ -234,7 +242,17 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
                   // resulting in the label being used as a tooltip
                   showText: false
                 }
-            ]
+            ],
+			beforeClose: function () {
+				//console.log('dailog1: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+				dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
+				//console.log('dailog2: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+				clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+                btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
+				$("#btn_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?> span")
+                          .removeClass("ui-icon-pin-w")
+                          .addClass("ui-icon-pin-s");
+			}
             /*beforeClose: function () {
                 return false;
             }
@@ -246,6 +264,11 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
             }*/
       });
       $( "#pos_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).mouseover(function() {
+	  		if (dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] == 1) {
+				//console.log('dailog no move');
+				return false;
+			}
+			//console.log('dailog move');
             clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
             $( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "open" );
             timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = setTimeout(function() {$( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "close" )}, lifetime);
