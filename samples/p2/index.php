@@ -153,7 +153,7 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
 <table border="0" cellspacing="1" cellpadding="5">
   <tr>
     <td valign="top"><img src="<?php echo $target_dir.$v['imageFile']; ?>" class="imglist" /></td>
-    <td valign="top"><b><?php echo $dataDetails['itemDescription']; ?></b><br /><a href="<?php echo $url; ?>" target="_blank" class="titleText"><?php echo $url; ?></a></td>
+    <td valign="top"><b><?php echo $dataDetails['itemDescription']; ?></b><br /><a href="redirect.php?id=<?php echo $row_rsView['id']; ?>&did=<?php echo $v['detail_id']; ?>&url=<?php echo urlencode($url); ?>" target="_blank" class="titleText"><?php echo $url; ?></a></td>
   </tr>
 </table>
 </div>
