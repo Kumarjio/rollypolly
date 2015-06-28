@@ -1,0 +1,89 @@
+
+[2015-05-20 05:43 UTC] HTTP request of validation request:POST /cgi-bin/webscr HTTP/1.1
+Host: www.paypal.com
+Accept: */*
+Connection: Close
+Content-Length: 1537
+Content-Type: application/x-www-form-urlencoded
+Expect: 100-continue
+
+ for IPN payload: cmd=_notify-validate&mc_gross=0.01&protection_eligibility=Eligible&address_status=confirmed&payer_id=BMD37LWCBPPVQ&tax=0.00&address_street=1104+Palm+Ridge+Ln&payment_date=22%3A43%3A40+May+19%2C+2015+PDT&payment_status=Completed&charset=windows-1252&address_zip=95123&first_name=Manish&mc_fee=0.01&address_country_code=US&address_name=Manish+Khanchandani&notify_version=3.8&custom=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%221B4437A2-A568-0F92-8FF5-AA0C050E4CB4%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payer_status=verified&business=renu09%40live.com&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AhOv-Gpl56O-pxGiZcqqRULOVMHIAJ7elOpqg5Bijj5xuH3eLjA4yafO&payer_email=finance%40mkgalaxy.com&txn_id=9W087462B4943173D&payment_type=instant&last_name=Khanchandani&address_state=CA&receiver_email=renu09%40live.com&payment_fee=0.01&receiver_id=C6MWTH29LK9P4&txn_type=web_accept&item_name=Admin+Fees&mc_currency=USD&item_number=1011&residence_country=US&handling_amount=0.00&transaction_subject=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%221B4437A2-A568-0F92-8FF5-AA0C050E4CB4%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payment_gross=0.01&shipping=0.00&ipn_track_id=e53f8ddf28648
+[2015-05-20 05:43 UTC] HTTP response of validation request: HTTP/1.1 200 OK
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Content-Type: text/html; charset=UTF-8
+DC: slc-origin-www.paypal.com
+Date: Wed, 20 May 2015 05:43:52 GMT
+Content-Length: 8
+Connection: close
+Set-Cookie: cwrClyrK4LoCV1fydGbAxiNL6iG=Qz5cwWY_t3xpjwd60slb8_m5jkjBTbEtiuTIZyviHHTkDZg98Kz6bj6Hx1AgmIzhyWeZUUStbk_8vgmHUiCKE7DzhWBjJOclF36sB62Kam0hC2TB6SdAQUb2jJ3QoC0ft20ZVvMy8DqKCUssXxLWP6qUTGAayMXy09p0fSPTwmp8bjWiKj1JQhgEjmJrChNPt2WoRmgm_Seo4pPmWEBRICS28JNYlEtl-8hONttB3AotskLDMyJPntKJv6hDL156tbE8-kRaHnW-i718yO_FmUMHtkTT3-BGID7DGP0e3CT9soF5jsKGjXkHxwK6zvoGWVr9E_Mr-4KgxOCKi8BvkAFH17HlkWwaSdnc69TwLwQd7LXc7D3BGAlkTLOFZpmSlDTutnT63SJxOBpWdi20ZsY3JNeuAxJ76Vz0tzVEonNNygB1scOZQX123Ta; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: cookie_check=yes; expires=Sat, 17-May-2025 05:43:52 GMT; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: navlns=0.0; expires=Fri, 19-May-2017 05:43:52 GMT; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: Apache=10.16.0.147.1432100631808955; path=/; expires=Fri, 12-May-45 05:43:51 GMT
+Set-Cookie: X-PP-SILOVER=name%3DLIVE9.WEB.1%26silo_version%3D880%26app%3Dappdispatcher%26TIME%3D387931221; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: X-PP-SILOVER=; Expires=Thu, 01 Jan 1970 00:00:01 GMT
+Set-Cookie: Apache=10.16.0.11.1432100631802419; path=/; expires=Fri, 12-May-45 05:43:51 GMT
+Set-Cookie: AKDC=slc-origin-www.paypal.com; expires=Wed, 20-May-2015 06:13:52 GMT; path=/; secure
+Strict-Transport-Security: max-age=63072000
+
+VERIFIED
+[2015-05-20 05:43 UTC] custom: {"amount":"0.1","deposit":"2","adminFees":"0.010000000000000002","paypalFees":"0.00035000000000000005","netFees":"0.01","record_id":"1B4437A2-A568-0F92-8FF5-AA0C050E4CB4","user_id":"112913147917981568678"} 
+[2015-05-20 05:43 UTC] customArr: array (
+  'amount' => '0.1',
+  'deposit' => '2',
+  'adminFees' => '0.010000000000000002',
+  'paypalFees' => '0.00035000000000000005',
+  'netFees' => '0.01',
+  'record_id' => '1B4437A2-A568-0F92-8FF5-AA0C050E4CB4',
+  'user_id' => '112913147917981568678',
+)
+[2015-05-20 05:43 UTC] Update Query: UPDATE real_money_records set paypal_details = '{\"mc_gross\":\"0.01\",\"protection_eligibility\":\"Eligible\",\"address_status\":\"confirmed\",\"payer_id\":\"BMD37LWCBPPVQ\",\"tax\":\"0.00\",\"address_street\":\"1104 Palm Ridge Ln\",\"payment_date\":\"22:43:40 May 19, 2015 PDT\",\"payment_status\":\"Completed\",\"charset\":\"windows-1252\",\"address_zip\":\"95123\",\"first_name\":\"Manish\",\"mc_fee\":\"0.01\",\"address_country_code\":\"US\",\"address_name\":\"Manish Khanchandani\",\"notify_version\":\"3.8\",\"custom\":\"{\\\"amount\\\":\\\"0.1\\\",\\\"deposit\\\":\\\"2\\\",\\\"adminFees\\\":\\\"0.010000000000000002\\\",\\\"paypalFees\\\":\\\"0.00035000000000000005\\\",\\\"netFees\\\":\\\"0.01\\\",\\\"record_id\\\":\\\"1B4437A2-A568-0F92-8FF5-AA0C050E4CB4\\\",\\\"user_id\\\":\\\"112913147917981568678\\\"}\",\"payer_status\":\"verified\",\"business\":\"renu09@live.com\",\"address_country\":\"United States\",\"address_city\":\"San Jose\",\"quantity\":\"1\",\"verify_sign\":\"AhOv-Gpl56O-pxGiZcqqRULOVMHIAJ7elOpqg5Bijj5xuH3eLjA4yafO\",\"payer_email\":\"finance@mkgalaxy.com\",\"txn_id\":\"9W087462B4943173D\",\"payment_type\":\"instant\",\"last_name\":\"Khanchandani\",\"address_state\":\"CA\",\"receiver_email\":\"renu09@live.com\",\"payment_fee\":\"0.01\",\"receiver_id\":\"C6MWTH29LK9P4\",\"txn_type\":\"web_accept\",\"item_name\":\"Admin Fees\",\"mc_currency\":\"USD\",\"item_number\":\"1011\",\"residence_country\":\"US\",\"handling_amount\":\"0.00\",\"transaction_subject\":\"{\\\"amount\\\":\\\"0.1\\\",\\\"deposit\\\":\\\"2\\\",\\\"adminFees\\\":\\\"0.010000000000000002\\\",\\\"paypalFees\\\":\\\"0.00035000000000000005\\\",\\\"netFees\\\":\\\"0.01\\\",\\\"record_id\\\":\\\"1B4437A2-A568-0F92-8FF5-AA0C050E4CB4\\\",\\\"user_id\\\":\\\"112913147917981568678\\\"}\",\"payment_gross\":\"0.01\",\"shipping\":\"0.00\",\"ipn_track_id\":\"e53f8ddf28648\"}', paypal_status = 'Completed', updated_dt = '2015-05-20 05:43:52' WHERE record_id = '1B4437A2-A568-0F92-8FF5-AA0C050E4CB4' AND user_id = '112913147917981568678' 
+[2015-05-20 05:43 UTC] Verified IPN: cmd=_notify-validate&mc_gross=0.01&protection_eligibility=Eligible&address_status=confirmed&payer_id=BMD37LWCBPPVQ&tax=0.00&address_street=1104+Palm+Ridge+Ln&payment_date=22%3A43%3A40+May+19%2C+2015+PDT&payment_status=Completed&charset=windows-1252&address_zip=95123&first_name=Manish&mc_fee=0.01&address_country_code=US&address_name=Manish+Khanchandani&notify_version=3.8&custom=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%221B4437A2-A568-0F92-8FF5-AA0C050E4CB4%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payer_status=verified&business=renu09%40live.com&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AhOv-Gpl56O-pxGiZcqqRULOVMHIAJ7elOpqg5Bijj5xuH3eLjA4yafO&payer_email=finance%40mkgalaxy.com&txn_id=9W087462B4943173D&payment_type=instant&last_name=Khanchandani&address_state=CA&receiver_email=renu09%40live.com&payment_fee=0.01&receiver_id=C6MWTH29LK9P4&txn_type=web_accept&item_name=Admin+Fees&mc_currency=USD&item_number=1011&residence_country=US&handling_amount=0.00&transaction_subject=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%221B4437A2-A568-0F92-8FF5-AA0C050E4CB4%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payment_gross=0.01&shipping=0.00&ipn_track_id=e53f8ddf28648 
+[2015-05-20 05:47 UTC] HTTP request of validation request:POST /cgi-bin/webscr HTTP/1.1
+Host: www.paypal.com
+Accept: */*
+Connection: Close
+Content-Length: 1537
+Content-Type: application/x-www-form-urlencoded
+Expect: 100-continue
+
+ for IPN payload: cmd=_notify-validate&mc_gross=0.01&protection_eligibility=Eligible&address_status=confirmed&payer_id=BMD37LWCBPPVQ&tax=0.00&address_street=1104+Palm+Ridge+Ln&payment_date=22%3A47%3A38+May+19%2C+2015+PDT&payment_status=Completed&charset=windows-1252&address_zip=95123&first_name=Manish&mc_fee=0.01&address_country_code=US&address_name=Manish+Khanchandani&notify_version=3.8&custom=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%2264525B18-486F-5DA7-93C1-9694AE05D828%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payer_status=verified&business=renu09%40live.com&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AAZBo41292784GRQg0xxLmq7RGd-Ac107I0EC-5WvY6n-UEMGow4PfBR&payer_email=finance%40mkgalaxy.com&txn_id=26D69333WB420640W&payment_type=instant&last_name=Khanchandani&address_state=CA&receiver_email=renu09%40live.com&payment_fee=0.01&receiver_id=C6MWTH29LK9P4&txn_type=web_accept&item_name=Admin+Fees&mc_currency=USD&item_number=1011&residence_country=US&handling_amount=0.00&transaction_subject=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%2264525B18-486F-5DA7-93C1-9694AE05D828%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payment_gross=0.01&shipping=0.00&ipn_track_id=e25eaaefe00e8
+[2015-05-20 05:47 UTC] HTTP response of validation request: HTTP/1.1 200 OK
+Server: Apache
+X-Frame-Options: SAMEORIGIN
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Content-Type: text/html; charset=UTF-8
+DC: slc-a-origin-www-2.paypal.com
+Date: Wed, 20 May 2015 05:47:52 GMT
+Content-Length: 8
+Connection: close
+Set-Cookie: cwrClyrK4LoCV1fydGbAxiNL6iG=xxe9pEAj4BFBttFmjxlM9ph0zJaVYZ4nHr-r-laGTmRoKpqzeCplV5kd-ejgO7d9gMtjgzVrMl1Uo319UNqZ_D-kFKOQn5vqGxTzKh1stMCeDkhZXWJnANfKioer6jYkbh1o6zLHrzHRtIRg1x-KIv6y-w6JSp6OXAARqnUNxwb8XuL_05KhdseypA6QErzBXY_OGW0LZ5xbn3v0bRtSo925z2eG9cwyX7qUPDglVyrvNLBVOOf9G0aryPMjvyPB7qhmSt9pE8_paTp5zgZrsGnQZfd4yPiVVaxJWoMmZ4DYJH6D4MbIQHBvDNszFDbDg2dy99WGneocHXn1FwH1Os5ZjQweEoJMoxWzeJ8nFmTWyngq2AL-Gan5h0qQsp2NLEt3GFNkE4hSpD1GBxl2Ckn5J2WmZ9hjISy_qz6Q44w-Ui1RlNpOSZvjAX4; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: cookie_check=yes; expires=Sat, 17-May-2025 05:47:52 GMT; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: navlns=0.0; expires=Fri, 19-May-2017 05:47:52 GMT; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: Apache=10.73.8.137.1432100872563247; path=/; expires=Fri, 12-May-45 05:47:52 GMT
+Set-Cookie: X-PP-SILOVER=name%3DLIVE5.WEB.1%26silo_version%3D880%26app%3Dappdispatcher%26TIME%3D136338517; domain=.paypal.com; path=/; Secure; HttpOnly
+Set-Cookie: X-PP-SILOVER=; Expires=Thu, 01 Jan 1970 00:00:01 GMT
+Set-Cookie: Apache=10.73.8.59.1432100872550336; path=/; expires=Fri, 12-May-45 05:47:52 GMT
+Set-Cookie: AKDC=slc-a-origin-www-2.paypal.com; expires=Wed, 20-May-2015 06:17:52 GMT; path=/; secure
+Strict-Transport-Security: max-age=63072000
+
+VERIFIED
+[2015-05-20 05:47 UTC] custom: {"amount":"0.1","deposit":"2","adminFees":"0.010000000000000002","paypalFees":"0.00035000000000000005","netFees":"0.01","record_id":"64525B18-486F-5DA7-93C1-9694AE05D828","user_id":"112913147917981568678"} 
+[2015-05-20 05:47 UTC] customArr: array (
+  'amount' => '0.1',
+  'deposit' => '2',
+  'adminFees' => '0.010000000000000002',
+  'paypalFees' => '0.00035000000000000005',
+  'netFees' => '0.01',
+  'record_id' => '64525B18-486F-5DA7-93C1-9694AE05D828',
+  'user_id' => '112913147917981568678',
+)
+[2015-05-20 05:47 UTC] Update Query: UPDATE real_money_records set paypal_details = '{\"mc_gross\":\"0.01\",\"protection_eligibility\":\"Eligible\",\"address_status\":\"confirmed\",\"payer_id\":\"BMD37LWCBPPVQ\",\"tax\":\"0.00\",\"address_street\":\"1104 Palm Ridge Ln\",\"payment_date\":\"22:47:38 May 19, 2015 PDT\",\"payment_status\":\"Completed\",\"charset\":\"windows-1252\",\"address_zip\":\"95123\",\"first_name\":\"Manish\",\"mc_fee\":\"0.01\",\"address_country_code\":\"US\",\"address_name\":\"Manish Khanchandani\",\"notify_version\":\"3.8\",\"custom\":\"{\\\"amount\\\":\\\"0.1\\\",\\\"deposit\\\":\\\"2\\\",\\\"adminFees\\\":\\\"0.010000000000000002\\\",\\\"paypalFees\\\":\\\"0.00035000000000000005\\\",\\\"netFees\\\":\\\"0.01\\\",\\\"record_id\\\":\\\"64525B18-486F-5DA7-93C1-9694AE05D828\\\",\\\"user_id\\\":\\\"112913147917981568678\\\"}\",\"payer_status\":\"verified\",\"business\":\"renu09@live.com\",\"address_country\":\"United States\",\"address_city\":\"San Jose\",\"quantity\":\"1\",\"verify_sign\":\"AAZBo41292784GRQg0xxLmq7RGd-Ac107I0EC-5WvY6n-UEMGow4PfBR\",\"payer_email\":\"finance@mkgalaxy.com\",\"txn_id\":\"26D69333WB420640W\",\"payment_type\":\"instant\",\"last_name\":\"Khanchandani\",\"address_state\":\"CA\",\"receiver_email\":\"renu09@live.com\",\"payment_fee\":\"0.01\",\"receiver_id\":\"C6MWTH29LK9P4\",\"txn_type\":\"web_accept\",\"item_name\":\"Admin Fees\",\"mc_currency\":\"USD\",\"item_number\":\"1011\",\"residence_country\":\"US\",\"handling_amount\":\"0.00\",\"transaction_subject\":\"{\\\"amount\\\":\\\"0.1\\\",\\\"deposit\\\":\\\"2\\\",\\\"adminFees\\\":\\\"0.010000000000000002\\\",\\\"paypalFees\\\":\\\"0.00035000000000000005\\\",\\\"netFees\\\":\\\"0.01\\\",\\\"record_id\\\":\\\"64525B18-486F-5DA7-93C1-9694AE05D828\\\",\\\"user_id\\\":\\\"112913147917981568678\\\"}\",\"payment_gross\":\"0.01\",\"shipping\":\"0.00\",\"ipn_track_id\":\"e25eaaefe00e8\"}', paypal_status = 'Completed', updated_dt = '2015-05-20 05:47:52' WHERE record_id = '64525B18-486F-5DA7-93C1-9694AE05D828' AND user_id = '112913147917981568678' 
+[2015-05-20 05:47 UTC] Verified IPN: cmd=_notify-validate&mc_gross=0.01&protection_eligibility=Eligible&address_status=confirmed&payer_id=BMD37LWCBPPVQ&tax=0.00&address_street=1104+Palm+Ridge+Ln&payment_date=22%3A47%3A38+May+19%2C+2015+PDT&payment_status=Completed&charset=windows-1252&address_zip=95123&first_name=Manish&mc_fee=0.01&address_country_code=US&address_name=Manish+Khanchandani&notify_version=3.8&custom=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%2264525B18-486F-5DA7-93C1-9694AE05D828%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payer_status=verified&business=renu09%40live.com&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AAZBo41292784GRQg0xxLmq7RGd-Ac107I0EC-5WvY6n-UEMGow4PfBR&payer_email=finance%40mkgalaxy.com&txn_id=26D69333WB420640W&payment_type=instant&last_name=Khanchandani&address_state=CA&receiver_email=renu09%40live.com&payment_fee=0.01&receiver_id=C6MWTH29LK9P4&txn_type=web_accept&item_name=Admin+Fees&mc_currency=USD&item_number=1011&residence_country=US&handling_amount=0.00&transaction_subject=%7B%22amount%22%3A%220.1%22%2C%22deposit%22%3A%222%22%2C%22adminFees%22%3A%220.010000000000000002%22%2C%22paypalFees%22%3A%220.00035000000000000005%22%2C%22netFees%22%3A%220.01%22%2C%22record_id%22%3A%2264525B18-486F-5DA7-93C1-9694AE05D828%22%2C%22user_id%22%3A%22112913147917981568678%22%7D&payment_gross=0.01&shipping=0.00&ipn_track_id=e25eaaefe00e8 

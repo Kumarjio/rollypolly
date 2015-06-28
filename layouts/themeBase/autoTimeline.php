@@ -203,6 +203,7 @@
 <div class="container-fluid" id="main">
   <div class="row">
     <div class="col-xs-6" id="middle">
+<?php include(SITEDIR.'/includes/custom_ads.php'); ?>
 <div id="mapCanvas"></div>
     <?php echo $contentForTemplate; ?>
     </div>

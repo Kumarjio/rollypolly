@@ -1,10 +1,12 @@
 // JavaScript Document
 var app = angular.module("RealMoneyMaking", []);
 
-/*
-app.controller("createCtrl", ['$scope', function($scope) {
-}]);
 
+app.controller("step1Ctrl", ['$scope', function($scope) {
+	console.log($scope);
+												 
+}]);
+/*
 //remove space
 app.filter('spaceless',function() {
     return function(input) {
