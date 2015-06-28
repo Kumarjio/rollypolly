@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<info>
-	<infoitem key="UD_rsDetail" value="name:detail_id;datatype:int,name:id;datatype:int,name:coordinates;datatype:blob,name:imageFile;datatype:string,name:extraFields;datatype:blob,name:detail_dt;datatype:datetime" />
-	<infoitem key="UD_rsID" value="name:id;datatype:int,name:uid;datatype:int,name:fileName;datatype:string,name:created_dt;datatype:datetime,name:resizeImg;datatype:int,name:width;datatype:int,name:height;datatype:int" />
-	<infoitem key="UD_rsView" value="name:tracking_id;datatype:int,name:main_image_id;datatype:int,name:image_detail_id;datatype:int,name:clicked_time;datatype:datetime,name:ip;datatype:string" />
-	<infoitem key="UD_rsCount" value="name:cnt;datatype:int" />
-</info>
