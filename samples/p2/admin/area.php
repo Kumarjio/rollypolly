@@ -312,6 +312,7 @@ if ($totalRows_rsDetail > 0) { // Show if recordset not empty
         <tr>
           <td>&nbsp;</td>
           <td><strong>Coordinates</strong></td>
+          <td><strong>Tracking</strong></td>
           <td><strong>Edit Details</strong></td>
           <td><strong>Delete</strong></td>
         </tr>
@@ -319,6 +320,7 @@ if ($totalRows_rsDetail > 0) { // Show if recordset not empty
         <tr>
           <td><?php if (!empty($row_rsDetail['imageFile'])) { ?><img src="<?php echo $target_dir.$row_rsDetail['imageFile']; ?>" class="imglist" /><?php } ?>&nbsp;</td>
           <td><?php echo substr($row_rsDetail['coordinates'], 0, 20).'...'; ?></td>
+          <td><a href="tracking.php?detail_id=<?php echo $row_rsDetail['detail_id']; ?>&id=<?php echo $row_rsDetail['id']; ?>">Tracking</a></td>
           <td><a href="editArea.php?detail_id=<?php echo $row_rsDetail['detail_id']; ?>&id=<?php echo $row_rsDetail['id']; ?>">Edit Details</a></td>
           <td><a href="area.php?delete_id=<?php echo $row_rsDetail['detail_id']; ?>&id=<?php echo $row_rsDetail['id']; ?>" onClick="var a = confirm('Do you really want to delete this area?'); return a;">Delete</a></td>
         </tr>

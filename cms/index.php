@@ -3,7 +3,9 @@ define('RDIR', dirname(dirname(__FILE__)));
 define('SITEDIR', RDIR);
 define('SITE_DIR', SITEDIR);
 set_include_path(get_include_path(). PATH_SEPARATOR. SITEDIR.'/libraries/library'. PATH_SEPARATOR. SITEDIR.'/libraries/pear');
-
+$arr = explode('.', $_SERVER['HTTP_HOST']);
+$baseDomain = $arr[(count($arr) - 2)].'.'.$arr[(count($arr) - 1)];
+define('BASEDOMAIN', $baseDomain);
 
 $subTitle = '';
 $pageTitle = '';
@@ -238,7 +240,7 @@ if (!empty($s)) {
     $q = $sURL;
     $id = $CMSActivities->addDetails('short_keywords', $d);
   }
-  $url = 'http://cms-'.$q.'.mkgalaxy.com';
+  $url = 'http://cms-'.$q.'.'.BASEDOMAIN;
   header("Location: ".$url);
   exit;
 }
@@ -448,5 +450,30 @@ nav#main .searchform input {
   ga('send', 'pageview');
 
 </script>
+<script type="text/javascript">
+var infolinks_pid = 2475670;
+var infolinks_wsid = 0;
+</script>
+<script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+  (function() {
+    var shr = document.createElement('script');
+    shr.setAttribute('data-cfasync', 'false');
+    shr.src = '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js';
+    shr.type = 'text/javascript'; shr.async = 'true';
+    shr.onload = shr.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (rs && rs != 'complete' && rs != 'loaded') return;
+      var site_id = '1b65f721e5c0648ac772cc8327a63173';
+      try { Shareaholic.init(site_id); } catch (e) {}
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(shr, s);
+  })();
+//]]>
+</script>
+
 </body>
 </html>

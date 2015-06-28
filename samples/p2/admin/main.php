@@ -31,6 +31,21 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+
+if ((isset($_GET['default_id'])) && ($_GET['default_id'] != "")) {
+  $deleteSQL = sprintf("UPDATE main_image SET defaultRecord = 0");
+  mysql_select_db($database_connP2, $connP2);
+  $Result1 = mysql_query($deleteSQL, $connP2) or die(mysql_error());
+  $deleteSQL = sprintf("UPDATE main_image SET defaultRecord = 1 WHERE id=%s",
+                       GetSQLValueString($_GET['default_id'], "int"));
+
+  mysql_select_db($database_connP2, $connP2);
+  $Result1 = mysql_query($deleteSQL, $connP2) or die(mysql_error());
+  $insertGoTo = "main.php";
+  header(sprintf("Location: %s", $insertGoTo));
+  exit;
+}
+
 require_once('../config.php');
 
 $editFormAction = $_SERVER['PHP_SELF'];
@@ -49,7 +64,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $filename = basename($_FILES["fileToUpload"]["name"]);
+  $filename = 'f_'.time().'_'.basename($_FILES["fileToUpload"]["name"]);
   $_POST['fileName'] = $filename;
   $target_file = $target_dir . $filename;
   $target_file_new = $target_dir_new.$filename;
@@ -113,6 +128,28 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 if ((isset($_GET['delete_id'])) && ($_GET['delete_id'] != "")) {
   $deleteSQL = sprintf("DELETE FROM main_image WHERE id=%s",
+                       GetSQLValueString($_GET['delete_id'], "int"));
+
+  mysql_select_db($database_connP2, $connP2);
+  $Result1 = mysql_query($deleteSQL, $connP2) or die(mysql_error());
+}
+if ((isset($_GET['delete_id'])) && ($_GET['delete_id'] != "")) {
+    mysql_select_db($database_connP2, $connP2);
+    $query = sprintf("SELECT * FROM image_details WHERE id = %s", GetSQLValueString($_GET['delete_id'], "int"));
+    $rs = mysql_query($query, $connP2) or die(mysql_error());
+    $total = mysql_num_rows($rs);
+    if ($total > 0) {
+        $dir = SUBIMAGEDIR.$_GET['delete_id'].'/';
+        while($row = mysql_fetch_array($rs)) {
+            $imageFile = $dir.$row['imageFile']; 
+            if (file_exists($imageFile)) {
+                unlink($imageFile);
+            }
+        }
+    }
+}
+if ((isset($_GET['delete_id'])) && ($_GET['delete_id'] != "")) {
+  $deleteSQL = sprintf("DELETE FROM image_details WHERE id=%s",
                        GetSQLValueString($_GET['delete_id'], "int"));
 
   mysql_select_db($database_connP2, $connP2);
@@ -194,6 +231,8 @@ body {
     <tr>
       <td valign="top">&nbsp;</td>
       <td valign="top"><strong>Image Name</strong></td>
+      <td valign="top"><strong>Default</strong></td>
+      <td valign="top"><strong>Make Default Image</strong></td>
       <td valign="top"><strong>Delete</strong></td>
       <td valign="top"><strong>Choose Area</strong></td>
       <td valign="top"><strong>Choose Smooth Area</strong></td>
@@ -202,6 +241,8 @@ body {
     <tr>
       <td valign="top"><a href="area.php?id=<?php echo $row_rsView['id']; ?>"><img src="<?php echo IMAGEDIR.$row_rsView['fileName']; ?>" class="imglist" /></a></td>
         <td valign="top"><?php echo $row_rsView['fileName']; ?></td>
+        <td valign="top"><?php echo $row_rsView['defaultRecord']; ?></td>
+        <td valign="top"><a href="main.php?default_id=<?php echo $row_rsView['id']; ?>">Make Default</a></td>
         <td valign="top"><a href="main.php?delete_id=<?php echo $row_rsView['id']; ?>&filename=<?php echo urlencode($row_rsView['fileName']); ?>" onClick="var a = confirm('Do you really want to delete this record?'); return a;">Delete</a></td>
         <td valign="top"><a href="area.php?id=<?php echo $row_rsView['id']; ?>">Choose Area</a></td>
         <td valign="top"><a href="areaSmooth.php?id=<?php echo $row_rsView['id']; ?>">Choose Smooth Area</a></td>

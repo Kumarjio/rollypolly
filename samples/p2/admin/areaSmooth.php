@@ -106,7 +106,6 @@ $totalRows_rsDetail = mysql_num_rows($rsDetail);
 
 $imageFile = $imageDir.$row_rsView['fileName'];
 $imageSize = getimagesize($imageFile);
-
 ?>
 <?php 
 $areaMarker = array();

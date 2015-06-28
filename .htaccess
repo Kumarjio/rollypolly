@@ -13,6 +13,20 @@ RewriteRule .? cms/index.php?q=%1&request_uri=%{REQUEST_URI} [NC,L,QSA]
 RewriteCond %{HTTP_HOST} ^cms\.mkgalaxy\.com$ [NC]
 RewriteRule .? cms/index.php?id=65644&q=credit-card&request_uri=%{REQUEST_URI} [NC,L,QSA]
 
+
+
+
+
+RewriteCond %{HTTP_HOST} ^cms\-(.*)\-([0-9]*).dcomerce\.com$ [NC]
+RewriteRule .? cms/index.php?id=%2&q=%1&request_uri=%{REQUEST_URI} [NC,L,QSA]
+
+RewriteCond %{HTTP_HOST} ^cms\-(.*).dcomerce\.com$ [NC]
+RewriteRule .? cms/index.php?q=%1&request_uri=%{REQUEST_URI} [NC,L,QSA]
+
+
+RewriteCond %{HTTP_HOST} ^cms\.dcomerce\.com$ [NC]
+RewriteRule .? cms/index.php?id=65644&q=credit-card&request_uri=%{REQUEST_URI} [NC,L,QSA]
+
 RewriteRule ^city\-(.*)\-([0-9]+)(.*)$ index.php?locationFind=1&city_id=$2&q=$3 [NC,L,QSA]
 RewriteRule ^state\-(.*)\-([0-9]+)(.*)$ index.php?locationFind=1&sta_id=$2&q=$3 [NC,L,QSA]
 RewriteRule ^country\-(.*)\-([0-9]+)(.*)$ index.php?locationFind=1&con_id=$2&q=$3 [NC,L,QSA]
