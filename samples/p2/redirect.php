@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/connP2.php'); ?>
+<?php require_once('Connections/connP2.php'); ?>
 <?php
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {

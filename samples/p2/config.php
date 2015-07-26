@@ -1,7 +1,7 @@
 <?php
 
 define('SITEDIR', dirname(__FILE__));
-$dir = '/samples/p2';
+$dir = '/';
 $host = str_replace('www.', '', $_SERVER['HTTP_HOST']);
 define('HTTPHOST', 'http://'.$host.$dir);
 define('IMAGEUPLOADDIR', SITEDIR.'/images/userImages/');

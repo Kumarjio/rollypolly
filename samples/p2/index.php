@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/connP2.php'); ?>
+<?php require_once('Connections/connP2.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -93,7 +93,7 @@ $initialArrayPosition = array(array('my' => 'left', 'at' => 'right top'), array(
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Freelancer - Start Bootstrap Theme</title>
+    <title>Eyeable</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -231,7 +231,7 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
 
 
 
-<img src="<?php echo $imageDir.$row_rsView['fileName']; ?>" width="<?php echo $check[0]; ?>" height="<?php echo $check[1]; ?>" usemap="#Map_<?php echo $row_rsView['id']; ?>" id="mapMainImage_<?php echo $row_rsView['id']; ?>" class="map" />
+<center><img src="<?php echo $imageDir.$row_rsView['fileName']; ?>" width="<?php echo $check[0]; ?>" height="<?php echo $check[1]; ?>" usemap="#Map_<?php echo $row_rsView['id']; ?>" id="mapMainImage_<?php echo $row_rsView['id']; ?>" class="map" /></center>
 <?php if (!empty($return)) { ?>
 <map name="Map_<?php echo $row_rsView['id']; ?>">
 <?php foreach ($return as $k => $v) { 
@@ -255,7 +255,11 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
 <script>
    $(function() {
     var selwidth = 300;
+    //console.log("selwidth: ");
+    //console.log(selwidth);
     var lifetime = 4000;
+    //console.log("lifetime: ");
+    //console.log(lifetime);
       var timeoutStr = {};
       var btnState = {};
       var dailogState = {};
@@ -286,25 +290,25 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
                   },
                   click: function() {
                     if (!btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']) {
-						//console.log('1');
+						//console.log('Line: <?php echo __LINE__; ?>, 1');
 						dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = 1;
-						//console.log('dailog: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+						//console.log('Line: <?php echo __LINE__; ?>, dailog: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                         clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                         btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = 1;
                         $("#btn_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?> span")
                           .removeClass("ui-icon-pin-s")
                           .addClass("ui-icon-pin-w");
                     } else {
-						//console.log('2');
+						//console.log('Line: <?php echo __LINE__; ?>, 2');
 						dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
-						//console.log('dailog: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+						//console.log('Line: <?php echo __LINE__; ?>, dailog: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                        btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null; 
                        timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = setTimeout(function() {$( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "close" )}, lifetime);
                        $("#btn_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?> span")
                           .removeClass("ui-icon-pin-w")
                           .addClass("ui-icon-pin-s");
                     }
-                    //console.log('state: ' + btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+                    //console.log('Line: <?php echo __LINE__; ?>, state: ' + btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                   },
                 
                   // Uncommenting the following line would hide the text,
@@ -313,9 +317,9 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
                 }
             ],
 			beforeClose: function () {
-				//console.log('dailog1: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+				//console.log('Line: <?php echo __LINE__; ?>, dailog1: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
 				dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
-				//console.log('dailog2: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
+				//console.log('Line: <?php echo __LINE__; ?>, dailog2: ' + dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
 				clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
                 btnState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = null;
 				$("#btn_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?> span")
@@ -334,21 +338,29 @@ $url = !empty($dataDetails['url']) ? $dataDetails['url'] : '';
       });
       $( "#pos_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).mouseover(function() {
 	  		if (dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] == 1) {
-				//console.log('dailog no move');
+				//console.log('Line: <?php echo __LINE__; ?>, dailog no move');
 				return false;
 			}
-			//console.log('dailog move');
+			//console.log('Line: <?php echo __LINE__; ?>, dailog move');
             clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
             $( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "open" );
             timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = setTimeout(function() {$( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "close" )}, lifetime);
       });
       $( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" )
           .mouseenter(function() {
-            //console.log('mouseenter div');
+	  		if (dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] == 1) {
+				//console.log('Line: <?php echo __LINE__; ?>, dailog no move');
+				return false;
+			}
+            //console.log('Line: <?php echo __LINE__; ?>, mouseenter div');
             clearTimeout(timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>']);
           })
           .mouseleave(function() {
-            //console.log('mouseleave div');
+	  		if (dailogState['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] == 1) {
+				//console.log('Line: <?php echo __LINE__; ?>, dailog no move');
+				return false;
+			}
+            //console.log('Line: <?php echo __LINE__; ?>, mouseleave div');
             timeoutStr['timeout_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>'] = setTimeout(function() {$( "#dialog_<?php echo $row_rsView['id']; ?>_<?php echo $v['detail_id']; ?>" ).dialog( "close" )}, lifetime);
           });
       <?php } ?>
