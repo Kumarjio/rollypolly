@@ -1,0 +1,4 @@
+<?php
+checkLoginToken();
+?>
+Hello World

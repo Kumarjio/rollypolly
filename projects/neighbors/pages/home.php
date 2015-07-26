@@ -1,0 +1,4 @@
+<?php
+checkLogin();
+?>
+Hello World
