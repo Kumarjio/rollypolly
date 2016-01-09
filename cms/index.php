@@ -1,4 +1,6 @@
 <?php
+header("Location: http://mkgalaxy.com");
+exit;
 define('RDIR', dirname(dirname(__FILE__)));
 define('SITEDIR', RDIR);
 define('SITE_DIR', SITEDIR);

@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-if="!showUserDetails">
+                <h2>Login</h2>
+                <button id="authorize-button" ng-click="handleClientLoad()">Authorize</button>
+            </div>
+            <div ng-if="showUserDetails">
+                <h2>My Details</h2>
+                <div class="row">
+                    <div class="col-md-4"><img class="img-responsive" ng-src="{{mainImage}}" alt=""></div>
+                    <div class="col-md-8">
+                        <h3>{{user.displayName}}</h3>
+                        <p><strong>Gender:</strong> {{user.gender}}</p>
+                        <p><a href="{{user.url}}" target="_blank" class="btn btn-primary">View Details</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

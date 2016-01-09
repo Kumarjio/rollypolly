@@ -63,6 +63,21 @@ function url_name_v2($name='')
 }//end list_name_url()
 
 
+function findCitySearch($searchTerm) {
+  $geo = new Models_Geo();
+  $cities = $geo->findCityDetails($searchTerm, 1);
+  return $cities;
+  
+}
+
+function nearbyCities($lat, $lon, $radius=100, $order='distance', $limit=30)
+{
+  $geo = new Models_Geo();
+  $nearby = $geo->get_nearby_cities($lat, $lon, $radius, $order, $limit);
+  return $nearby;
+}
+
+
 function findCity($city_id)
 {
   $geo = new Models_Geo();
@@ -622,7 +637,7 @@ function postMessage($approved=0)
 
 function findHoroInfo($data)
 {
-  if (empty($data['dob']) || empty($data['extraDetails'])) {
+  if (empty($data['dob'])) {
     return false;
   }
   $Kundali = new Library_Kundali();

@@ -92,7 +92,7 @@ if($myRss_RSSmax==0 || $myRss_RSSmax>count($myRss->titles))$myRss_RSSmax=count($
   padding-bottom: 25px;
 }
 </style>
-<?php include(SITEDIR.'/includes/custom_ads.php'); ?>
+<?php //include(SITEDIR.'/includes/custom_ads.php'); ?>
       <?php if ($myRss_RSSmax > 0) {
                     ?>
 <div class="row">

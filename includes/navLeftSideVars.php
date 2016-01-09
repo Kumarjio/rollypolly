@@ -5,6 +5,7 @@ if (empty($_GET['city_id'])) {
 }
 $city_id = $_GET['city_id'];
 $globalCity = findCity($city_id);
+
 if (empty($globalCity)) {
   header("Location: ".HTTPPATH);
   exit;

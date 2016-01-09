@@ -43,6 +43,23 @@ class Models_Geo extends App_base
   }
 
 
+  public function findCityDetails($searchTerm, $cache=1)
+  {
+   $sql = sprintf("SELECT geo_cities.cty_id as id, geo_cities.name as name, geo_cities.con_id as country_id, geo_cities.sta_id as state_id, geo_states.name as state, geo_countries.name as country FROM geo_cities LEFT JOIN geo_states ON geo_cities.sta_id = geo_states.sta_id LEFT JOIN  geo_countries ON geo_states.con_id = geo_countries.con_id WHERE geo_cities.name LIKE %s", $this->qstr('%'.$searchTerm.'%'));
+    if ($cache) {
+      $result = $this->_connMain->CacheExecute(300, $sql);
+    } else {
+      $result = $this->_connMain->Execute($sql);
+    }
+    $return = array();
+    while (!$result->EOF) {
+        $return[] = $result->fields;
+        $result->MoveNext();
+     }
+    return $return;
+  }
+
+
   public function myOwnedCities($user_id, $cache=1)
   {
     $sql = sprintf("SELECT geo_city_owners.owner_id, geo_city_owners.status, geo_city_owners.expiry_date, geo_city_owners.subs_expiry_date, geo_city_owners.status, geo_cities.cty_id as id, geo_cities.name as name, geo_cities.con_id as country_id, geo_cities.sta_id as state_id, geo_states.name as state, geo_countries.name as country FROM geo_city_owners LEFT JOIN geo_cities ON geo_city_owners.cty_id = geo_cities.cty_id LEFT JOIN geo_states ON geo_cities.sta_id = geo_states.sta_id LEFT JOIN  geo_countries ON geo_states.con_id = geo_countries.con_id WHERE geo_city_owners.owner_id=%s ORDER BY geo_city_owners.created DESC", $this->qstr($user_id));

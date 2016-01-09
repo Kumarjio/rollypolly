@@ -9,6 +9,8 @@ if (!empty($_GET['p'])) {
 $page .= '.php';
 $pageTitle = 'World Cities';
 
+
+
 ob_start();
 if ($host !== 'mkgalaxy.com' && empty($_SESSION['sub_city_location'])) {
   $params['where'] = sprintf(" AND d.domain = %s AND d.status = 1", $modelGeneral->qstr($_SERVER['HTTP_HOST']));
@@ -26,9 +28,11 @@ if ($host !== 'mkgalaxy.com' && empty($_SESSION['sub_city_location'])) {
   }
 }
 
+
 if (!empty($_GET['locationFind']) && isset($_GET['q'])) {
   $tmp = explode('/', $_GET['q']);
   $tmp = array_filter($tmp);
+
   if (empty($tmp)) {
     include('mods/home.php');
   } else {
@@ -81,6 +85,7 @@ if (empty($layoutFile)) {
   $layoutFile = 'layouts/themeBase/index';
 }
 $layoutFile = $layoutFile.'.php';
+
 if (empty($hideLayout)) {
   include($layoutFile);
 } else {

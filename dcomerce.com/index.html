@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dcomerce" ng-controller="AppCtrl">
+  <head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dcomerce</title>
+    <!-- Bootstrap -->
+	<!-- <link href="../css/bootstrap.css" rel="stylesheet"> -->
+	<link href="/css/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+	<link href="app.css" rel="stylesheet" type="text/css">
+
+  </head>
+  <body style="padding-top: 70px">
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+              <a class="navbar-brand" href="#/deals">Dcomerce.com</a></div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="topFixedNavbar1">
+              <ul class="nav navbar-nav">
+                  <li ng-if="!isLoggedIn"><a href="#/user/login">Login</a></li>
+                  <li ng-if="isLoggedIn"><a href="#/user/login">{{userDetails.displayName}}</a></li>
+                  <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" ng-cloak>{{countyName}}<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a href="#/deals">Deals</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <form class="navbar-form navbar-left" role="search">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search">
+                  </div>
+                  <button type="button" class="btn btn-default">Submit</button>
+              </form>
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Post<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a href="#/post/deal">New Deal</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a href="#/category/{{category.id}}" ng-repeat="category in categories | orderBy: 'name'">{{category.name}}</a></li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+  </nav>
+
+<div ng-view></div>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Copyright &copy; Your Website 2015</p>
+        </div>
+    </div>
+    <!-- /.row -->
+    </div>
+</footer>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="/js/jquery-1.11.2.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.js"></script>
+<script src="//code.angularjs.org/1.4.4/angular-cookies.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  <script src="app.js"></script>
+  <script src="services/mkhttpService.js"></script>
+  <script src="home/home.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+	<!-- <script src="../js/bootstrap.js"></script> -->
+  <script src="/js/bootstrap-3.3.4.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+[16-Oct-2015 03:51:17 America/Los_Angeles] PHP Fatal error:  Call to a member function MoveNext() on a non-object in /home/consultlawyers/public_html/mkgxy2/libraries/world/Geography.class.php on line 90
